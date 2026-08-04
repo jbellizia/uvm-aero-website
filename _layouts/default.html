@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% assign page_title = page.title | default: site.title %}
+  {% assign page_desc = page.description | default: site.description %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_desc }}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  {% if page.og_image %}<meta property="og:image" content="{{ page.og_image | absolute_url }}">{% endif %}
+  <meta name="twitter:card" content="{% if page.og_image %}summary_large_image{% else %}summary{% endif %}">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_desc }}">
+  {% if page.og_image %}<meta name="twitter:image" content="{{ page.og_image | absolute_url }}">{% endif %}
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" type="image/png" href="/images/chip-32x32-round.png">
+  <link rel="apple-touch-icon" href="/images/chip-180x180-round.png">
+  <style>
+    :root {
+      --primary: #6d87b8;
+      --accent: #e63946;
+      --bg: #fafafa;
+      --text: #333;
+      --muted: #666;
+      --border: #ddd;
+      --row-alt: #f5f5f5;
+      --row-hover: #e8f4f8;
+    }
+    html { overflow-y: scroll; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      margin-bottom: 1rem;
+    }
+    header .container {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+    header h1 a, header h1 a:hover {
+      color: white;
+      text-decoration: none;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      opacity: 0.9;
+    }
+    header nav {
+      margin-top: 0.75rem;
+    }
+    nav a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      margin-right: 1.25rem;
+      padding-bottom: 0.25rem;
+      display: inline-block;
+      margin-top: 0.4rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a:hover {
+      color: white;
+      border-bottom-color: rgba(255, 255, 255, 0.5);
+    }
+    nav a.active {
+      color: white;
+      border-bottom-color: white;
+    }
+    main h2 {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.3rem;
+      margin-top: 2rem;
+    }
+    main h2:first-child {
+      margin-top: 0;
+    }
+    a {
+      color: var(--primary);
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    .highlight {
+      background: #f6dab1;
+      border-left: 4px solid #e8b96d;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background: var(--row-alt);
+    }
+    tr:hover {
+      background: var(--row-hover);
+    }
+    thead tr:hover {
+      background: var(--primary);
+    }
+    tr:has(strong) td:first-child {
+      border-left: 4px solid var(--primary);
+      padding-left: calc(1rem - 4px);
+    }
+    /* Carousel */
+    .carousel {
+      position: relative;
+      margin: 1.5rem 0;
+    }
+    .carousel-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      aspect-ratio: 3 / 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 1;
+      line-height: 1;
+    }
+    .carousel-btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .carousel-btn.prev { left: 0.5rem; }
+    .carousel-btn.next { right: 0.5rem; }
+    .carousel-btn.pause {
+      top: 0.5rem;
+      right: 0.5rem;
+      transform: none;
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+    }
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-stage {
+      display: flex;
+      width: 95vw;
+      height: 92vh;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .lightbox-stage::-webkit-scrollbar { display: none; }
+    .lightbox-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      cursor: zoom-out;
+    }
+    .lightbox-slide img {
+      width: 100%;
+      height: 92vh;
+      object-fit: contain;
+      display: block;
+      cursor: zoom-out;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    .lightbox-close, .lightbox-prev, .lightbox-next {
+      z-index: 1;
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      padding: 0.4rem 0.75rem;
+    }
+    .lightbox-prev, .lightbox-next {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      padding: 0.5rem 0.75rem;
+    }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox.single .lightbox-prev,
+    .lightbox.single .lightbox-next { display: none; }
+    .lightbox.single .lightbox-stage { overflow-x: hidden; }
+    /* Inline article figures */
+    main h2, main h3 { clear: both; }
+    figure.post-figure {
+      margin: 2rem 0;
+    }
+    figure.post-figure img {
+      max-width: 100%;
+      max-height: 75vh;
+      width: auto;
+      height: auto;
+      border-radius: 4px;
+      cursor: zoom-in;
+      display: block;
+    }
+    figure.post-figure--center img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    figure.post-figure figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    figure.post-figure--center figcaption {
+      text-align: center;
+    }
+    figure.post-figure--left,
+    figure.post-figure--right {
+      max-width: 42%;
+      margin-top: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    figure.post-figure--left {
+      float: left;
+      margin-right: 1.5rem;
+    }
+    figure.post-figure--right {
+      float: right;
+      margin-left: 1.5rem;
+    }
+    figure.post-figure--left img,
+    figure.post-figure--right img {
+      width: 100%;
+      max-height: none;
+    }
+    @media (max-width: 600px) {
+      figure.post-figure--left,
+      figure.post-figure--right {
+        float: none;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+    /* Pull quotes */
+    blockquote.pullquote {
+      position: relative;
+      margin: 2rem 0;
+      padding: 1.5rem 1.75rem;
+      background: var(--row-alt);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+      overflow: hidden;
+    }
+    blockquote.pullquote::before {
+      content: "\201C";
+      position: absolute;
+      top: -0.6rem;
+      right: 0.9rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--primary);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    blockquote.pullquote p {
+      position: relative;
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    blockquote.pullquote footer {
+      margin-top: 1.1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    blockquote.pullquote cite {
+      display: block;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+    blockquote.pullquote footer span {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+    /* Budget tables */
+    main table { }
+    main h3 + table,
+    main h3 + p + table { margin-top: 0.5rem; }
+    main table td[colspan="2"] {
+      background: #f0f0f0;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-top: 0.75rem;
+    }
+.summary-table { max-width: 44rem; margin-bottom: 2rem; }
+    main table tr:has(> td > strong) td {
+      background: rgba(109, 135, 184, 0.15);
+    }
+    main table td[colspan="2"] {
+      background: #f0f0f0;
+    }
+    .summary-table th { font-size: 0.85rem; }
+    /* Portfolio viewer */
+    .portfolio-viewer {
+      margin: 1.5rem 0;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .portfolio-page {
+      display: flex;
+      justify-content: center;
+      background: #e0e0e0;
+      padding: 0.75rem;
+    }
+    .portfolio-page canvas {
+      display: block;
+      width: 100%;
+      max-width: 680px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .portfolio-skeleton {
+      width: 100%;
+      max-width: 680px;
+      aspect-ratio: 4 / 3;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-skeleton::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.04) 50%, transparent 100%);
+      animation: skeleton-shimmer 1.5s infinite;
+    }
+    @keyframes skeleton-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .portfolio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.5rem 0.75rem 0.75rem;
+      background: #e0e0e0;
+    }
+    .portfolio-controls button {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 1.25rem;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .portfolio-controls button:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .portfolio-controls button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .portfolio-controls .portfolio-counter {
+      font-size: 0.9rem;
+      color: var(--text);
+      min-width: 6rem;
+      text-align: center;
+    }
+    .portfolio-page canvas {
+      cursor: pointer;
+    }
+    .portfolio-viewer.fullscreen {
+      position: fixed;
+      inset: 0;
+      margin: 0;
+      border-radius: 0;
+      z-index: 1000;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+    }
+    .portfolio-viewer.fullscreen .portfolio-page {
+      flex: 1;
+      background: #000;
+      padding: 1rem;
+      min-height: 0;
+    }
+    .portfolio-viewer.fullscreen .portfolio-page canvas {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: 100%;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+    .portfolio-viewer.fullscreen .portfolio-controls {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 0.75rem;
+    }
+    .portfolio-viewer.fullscreen .portfolio-counter {
+      color: white;
+    }
+    .portfolio-close {
+      display: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .portfolio-close:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .portfolio-viewer.fullscreen .portfolio-close {
+      display: block;
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 1;
+    }
+    .portfolio-side-prev, .portfolio-side-next {
+      display: none;
+    }
+    .portfolio-viewer.fullscreen .portfolio-side-prev,
+    .portfolio-viewer.fullscreen .portfolio-side-next {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      font-size: 2.5rem;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+      z-index: 1;
+    }
+    .portfolio-viewer.fullscreen .portfolio-side-prev { left: 1rem; }
+    .portfolio-viewer.fullscreen .portfolio-side-next { right: 1rem; }
+    .portfolio-viewer.fullscreen .portfolio-side-prev:hover,
+    .portfolio-viewer.fullscreen .portfolio-side-next:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .portfolio-viewer.fullscreen .portfolio-side-prev:disabled,
+    .portfolio-viewer.fullscreen .portfolio-side-next:disabled {
+      opacity: 0.2;
+      cursor: default;
+    }
+    .portfolio-viewer.fullscreen .portfolio-page canvas {
+      cursor: pointer;
+    }
+    /* Banner / hero image */
+    .has-banner {
+      position: relative;
+    }
+    .has-banner header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background: linear-gradient(rgba(0,0,0,0.45), transparent);
+      margin-bottom: 0;
+    }
+    .banner {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: var(--primary);
+      overflow: hidden;
+    }
+    .banner img {
+      width: 100%;
+      max-width: 1920px;
+      height: 380px;
+      object-fit: cover;
+      object-position: 50% 25%;
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .banner img { height: 624px; }
+    }
+    .banner-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 2.5rem 1.5rem 1.25rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+      color: white;
+      pointer-events: none;
+    }
+    .banner-overlay-title {
+      margin: 0;
+      font-size: 1.65rem;
+      line-height: 1.15;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .banner-overlay-date {
+      margin: 0.4rem 0 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+    .banner-overlay-author {
+      margin: 0.15rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+    .banner-title {
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      font-size: 2rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.3rem;
+    }
+    .banner-date {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0.5rem 0 0;
+    }
+    .banner-author {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0.2rem 0 0;
+    }
+    @media (min-width: 600px) {
+      .banner-title { font-size: 2.5rem; }
+    }
+    @media (min-width: 768px) {
+      .banner-overlay { display: none; }
+    }
+    @media (max-width: 767.98px) {
+      .banner-title,
+      .banner-date,
+      .banner-author { display: none; }
+    }
+    /* Defeat Safari data detectors on EIN */
+    .no-detect { unicode-bidi: isolate; }
+    /* Donate button */
+    .btn-donate {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.65rem 1.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin: 0.5rem 0 0.25rem;
+    }
+    .btn-donate:hover {
+      background: #536d99;
+      color: white;
+    }
+    /* Donation feed */
+    .donation-progress {
+      margin: 1rem 0 1.5rem;
+    }
+    .donation-progress .raised {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .donation-progress .goal {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .donation-progress .inkind {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+    .donation-progress-bar {
+      background: #e0e0e0;
+      border-radius: 999px;
+      height: 10px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .donation-progress-bar .fill {
+      background: linear-gradient(90deg, var(--primary), #2a9d8f);
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s;
+    }
+    .donation-feed {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .donation-feed li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      margin: 0;
+    }
+    .donation-feed li:last-child {
+      border-bottom: none;
+    }
+    .donation-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .donation-detail {
+      flex: 1;
+      min-width: 0;
+    }
+    .donation-detail .donor-name {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .donation-detail .donation-amount {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .donation-detail .donation-meta {
+      color: #888;
+      font-size: 0.85rem;
+    }
+  </style>
+  <script data-goatcounter="https://bamvt.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  {% if page.banner_image %}<div class="has-banner">{% endif %}
+  <header>
+    <div class="container">
+      <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+      <p>{{ site.description }}</p>
+      <nav>
+        {% assign nav_items = "Home:/,Events:/events,Blog:/blog,Portfolio:/portfolio,Sponsors:/sponsors,Budget:/budget,Donate:/donate" | split: "," %}
+        {% for item in nav_items %}
+          {% assign parts = item | split: ":" %}
+          {% assign label = parts[0] %}
+          {% assign path = parts[1] %}
+          {% assign is_active = false %}
+          {% if path == '/' %}
+            {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
+          {% elsif page.url contains path %}
+            {% assign is_active = true %}
+          {% endif %}
+          <a href="{{ path | relative_url }}" {% if is_active %}class="active"{% endif %}>{{ label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+  {% if page.banner_image %}
+  <div class="banner">
+    <img src="{{ page.banner_image }}" alt="{{ page.title }}">
+    <div class="banner-overlay">
+      <h2 class="banner-overlay-title">{{ page.title }}</h2>
+      {% if page.date %}<p class="banner-overlay-date">{{ page.date | date: "%B %-d, %Y" }}</p>{% endif %}
+      {% if page.author %}<p class="banner-overlay-author">{{ page.author }}</p>{% endif %}
+    </div>
+  </div>
+  </div>{% endif %}
+  <main class="container">
+    {% if page.banner_image %}
+    <h2 class="banner-title">{{ page.title }}</h2>
+    {% if page.date %}<p class="banner-date">{{ page.date | date: "%B %-d, %Y" }}</p>{% endif %}
+    {% if page.author %}<p class="banner-author">{{ page.author }}</p>{% endif %}
+    {% endif %}
+    {{ content }}
+  </main>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightbox-close" title="Close" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-prev" id="lightbox-prev" title="Previous" aria-label="Previous image">&lsaquo;</button>
+    <div class="lightbox-stage" id="lightbox-stage"></div>
+    <button class="lightbox-next" id="lightbox-next" title="Next" aria-label="Next image">&rsaquo;</button>
+  </div>
+  <footer class="container">
+    <p>
+      &copy; {{ 'now' | date: "%Y" }} Bennington Area Robotics
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.instagram.com/ftc18650" target="_blank" rel="noopener">Instagram</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.youtube.com/@bennington-area-robotics" target="_blank" rel="noopener">YouTube</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://github.com/bennington-area-robotics" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+<script>
+(function() {
+  var lightbox = document.getElementById('lightbox');
+  var stage = document.getElementById('lightbox-stage');
+  var currentImages = [];
+  var currentSyncFn = null;
+
+  function makeSlide(src, alt) {
+    var slide = document.createElement('div');
+    slide.className = 'lightbox-slide';
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = alt;
+    img.draggable = false;
+    slide.appendChild(img);
+    return slide;
+  }
+
+  function openLightbox(images, index, syncFn) {
+    currentImages = images;
+    currentSyncFn = syncFn;
+    var n = images.length;
+    lightbox.classList.toggle('single', n <= 1);
+    stage.innerHTML = '';
+    var lastClone = makeSlide(images[n - 1].src, images[n - 1].alt);
+    lastClone.setAttribute('aria-hidden', 'true');
+    var firstClone = makeSlide(images[0].src, images[0].alt);
+    firstClone.setAttribute('aria-hidden', 'true');
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(lastClone);
+    images.forEach(function(img) { fragment.appendChild(makeSlide(img.src, img.alt)); });
+    fragment.appendChild(firstClone);
+    stage.appendChild(fragment);
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function() {
+      stage.scrollTo({left: (index + 1) * stage.clientWidth, behavior: 'auto'});
+    });
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    stage.innerHTML = '';
+  }
+
+  function normalizeStage() {
+    if (!lightbox.classList.contains('open')) return;
+    var w = stage.clientWidth;
+    var n = currentImages.length;
+    var idx;
+    if (stage.scrollLeft < w / 2) {
+      stage.scrollTo({left: n * w, behavior: 'auto'});
+      idx = n - 1;
+    } else if (stage.scrollLeft > n * w + w / 2) {
+      stage.scrollTo({left: w, behavior: 'auto'});
+      idx = 0;
+    } else {
+      idx = Math.round(stage.scrollLeft / w) - 1;
+    }
+    if (currentSyncFn) currentSyncFn(idx);
+  }
+
+  stage.addEventListener('scrollend', normalizeStage);
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target.closest('button')) return;
+    closeLightbox();
+  });
+  document.getElementById('lightbox-prev').addEventListener('click', function(e) {
+    e.stopPropagation();
+    stage.scrollBy({left: -stage.clientWidth, behavior: 'smooth'});
+  });
+  document.getElementById('lightbox-next').addEventListener('click', function(e) {
+    e.stopPropagation();
+    stage.scrollBy({left: stage.clientWidth, behavior: 'smooth'});
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') stage.scrollBy({left: -stage.clientWidth, behavior: 'smooth'});
+    else if (e.key === 'ArrowRight') stage.scrollBy({left: stage.clientWidth, behavior: 'smooth'});
+  });
+
+  // Inline article figures open in the lightbox
+  document.querySelectorAll('.post-figure img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      openLightbox([{ src: img.src, alt: img.alt }], 0);
+    });
+  });
+
+  document.querySelectorAll('.portfolio-viewer').forEach(function(viewer) {
+    var pdfUrl = viewer.getAttribute('data-pdf');
+    if (!pdfUrl) return;
+    var pageContainer = viewer.querySelector('.portfolio-page');
+    var prevBtn = viewer.querySelector('.portfolio-prev');
+    var nextBtn = viewer.querySelector('.portfolio-next');
+    var counter = viewer.querySelector('.portfolio-counter');
+    var loading = viewer.querySelector('.portfolio-loading');
+    var closeBtn = viewer.querySelector('.portfolio-close');
+    var sidePrev = viewer.querySelector('.portfolio-side-prev');
+    var sideNext = viewer.querySelector('.portfolio-side-next');
+    var pdfDoc = null;
+    var current = 0;
+    var rendering = false;
+    var isFullscreen = false;
+    var pageCache = {};
+    var SCALE_INLINE = 1.5;
+    var SCALE_FULL = 2.5;
+
+    function getScale() { return isFullscreen ? SCALE_FULL : SCALE_INLINE; }
+
+    function updateControls() {
+      var n = pdfDoc ? pdfDoc.numPages : 0;
+      counter.textContent = 'Page ' + (current + 1) + ' of ' + n;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === n - 1;
+      sidePrev.disabled = current === 0;
+      sideNext.disabled = current === n - 1;
+    }
+
+    function renderToCanvas(idx, scale) {
+      return pdfDoc.getPage(idx + 1).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        var canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        var ctx = canvas.getContext('2d');
+        return page.render({canvasContext: ctx, viewport: viewport}).promise.then(function() {
+          return canvas;
+        });
+      });
+    }
+
+    function showCached(idx, scale) {
+      var key = idx + '_' + scale;
+      if (pageCache[key]) {
+        pageContainer.innerHTML = '';
+        pageContainer.appendChild(pageCache[key]);
+        return true;
+      }
+      return false;
+    }
+
+    function prefetch(idx) {
+      if (!pdfDoc || idx < 0 || idx >= pdfDoc.numPages) return;
+      var scale = getScale();
+      var key = idx + '_' + scale;
+      if (pageCache[key]) return;
+      renderToCanvas(idx, scale).then(function(canvas) {
+        pageCache[key] = canvas;
+      });
+    }
+
+    function renderPage(idx) {
+      if (!pdfDoc || rendering) return;
+      current = idx;
+      updateControls();
+      var scale = getScale();
+      if (showCached(idx, scale)) {
+        prefetch(idx + 1);
+        return;
+      }
+      rendering = true;
+      renderToCanvas(idx, scale).then(function(canvas) {
+        pageCache[idx + '_' + scale] = canvas;
+        if (current === idx) {
+          pageContainer.innerHTML = '';
+          pageContainer.appendChild(canvas);
+        }
+        rendering = false;
+        prefetch(idx + 1);
+      });
+    }
+
+    function enterFullscreen() {
+      isFullscreen = true;
+      viewer.classList.add('fullscreen');
+      document.body.style.overflow = 'hidden';
+      renderPage(current);
+    }
+
+    function exitFullscreen() {
+      isFullscreen = false;
+      viewer.classList.remove('fullscreen');
+      document.body.style.overflow = '';
+      renderPage(current);
+    }
+
+    pageContainer.addEventListener('click', function() {
+      if (!isFullscreen) { enterFullscreen(); }
+      else if (pdfDoc && current < pdfDoc.numPages - 1) { renderPage(current + 1); }
+    });
+    closeBtn.addEventListener('click', function(e) { e.stopPropagation(); exitFullscreen(); });
+
+    sidePrev.addEventListener('click', function(e) { e.stopPropagation(); if (current > 0) renderPage(current - 1); });
+    sideNext.addEventListener('click', function(e) { e.stopPropagation(); if (pdfDoc && current < pdfDoc.numPages - 1) renderPage(current + 1); });
+
+    prevBtn.addEventListener('click', function() { if (current > 0) renderPage(current - 1); });
+    nextBtn.addEventListener('click', function() { if (pdfDoc && current < pdfDoc.numPages - 1) renderPage(current + 1); });
+
+    document.addEventListener('keydown', function(e) {
+      if (lightbox.classList.contains('open')) return;
+      if (!pdfDoc) return;
+      if (e.key === 'Escape' && isFullscreen) exitFullscreen();
+      else if (e.key === 'ArrowLeft' && current > 0) renderPage(current - 1);
+      else if (e.key === 'ArrowRight' && current < pdfDoc.numPages - 1) renderPage(current + 1);
+    });
+
+    // Load PDF.js then the document
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    script.onload = function() {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      pdfjsLib.getDocument({url: pdfUrl, rangeChunkSize: 65536, disableAutoFetch: true}).promise.then(function(pdf) {
+        pdfDoc = pdf;
+        if (loading) loading.remove();
+        renderPage(0);
+      });
+    };
+    document.head.appendChild(script);
+  });
+
+  document.querySelectorAll('.carousel').forEach(function(carousel) {
+    var track = carousel.querySelector('.carousel-track');
+    if (!track) return;
+    var pauseBtn = carousel.querySelector('.carousel-btn.pause');
+    var paused = false;
+    var timer;
+
+    // Clone first and last slides for seamless infinite wrap
+    var slides = Array.from(track.children);
+    var n = slides.length;
+    var firstClone = slides[0].cloneNode(true);
+    var lastClone = slides[n - 1].cloneNode(true);
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, slides[0]);
+    var startIndex = parseInt(carousel.getAttribute('data-start'), 10) || 0;
+    track.scrollTo({left: (startIndex + 1) * track.clientWidth, behavior: 'auto'});
+
+    function normalize() {
+      var w = track.clientWidth;
+      if (track.scrollLeft < w / 2)
+        track.scrollTo({left: n * w, behavior: 'auto'});
+      else if (track.scrollLeft > n * w + w / 2)
+        track.scrollTo({left: w, behavior: 'auto'});
+    }
+
+    function scroll(dir) {
+      normalize();
+      track.scrollBy({left: dir * track.clientWidth, behavior: 'smooth'});
+    }
+
+    function scheduleAdvance() {
+      clearTimeout(timer);
+      if (!paused) timer = setTimeout(function() { scroll(1); }, 5000);
+    }
+
+    // After scroll settles on a clone, teleport and schedule next advance
+    track.addEventListener('scrollend', function() { normalize(); scheduleAdvance(); });
+
+    function setPauseBtn(isPaused) {
+      if (pauseBtn) {
+        pauseBtn.textContent = isPaused ? '\u25B6' : '\u23F8';
+        pauseBtn.title = isPaused ? 'Play slideshow' : 'Pause slideshow';
+      }
+    }
+
+    function pause() {
+      if (paused) return;
+      clearTimeout(timer);
+      paused = true;
+      setPauseBtn(true);
+    }
+
+    function play() {
+      if (!paused) return;
+      paused = false;
+      setPauseBtn(false);
+      scheduleAdvance();
+    }
+
+    if (pauseBtn) pauseBtn.addEventListener('click', function() { paused ? play() : pause(); });
+    track.addEventListener('pointerdown', pause);
+    var prevBtn = carousel.querySelector('.carousel-btn.prev');
+    var nextBtn = carousel.querySelector('.carousel-btn.next');
+    if (prevBtn) prevBtn.addEventListener('click', function() { pause(); scroll(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { pause(); scroll(1); });
+
+    // Lightbox: real slides only; index+1 accounts for the prepended lastClone
+    var images = Array.from(carousel.querySelectorAll('.carousel-slide:not([aria-hidden]) img'));
+    var syncFn = function(idx) {
+      track.scrollTo({left: (idx + 1) * track.clientWidth, behavior: 'smooth'});
+    };
+
+    function addLightboxHandler(img, i) {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function() { openLightbox(images, i, syncFn); pause(); });
+    }
+    images.forEach(addLightboxHandler);
+    addLightboxHandler(lastClone.querySelector('img'), n - 1);
+    addLightboxHandler(firstClone.querySelector('img'), 0);
+
+    scheduleAdvance();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "goal": 20000,
+  "donations": [
+    {
+      "donor": "John Doe",
+      "amount": 100,
+      "designation": "Anything",
+      "date": "2026-04-25",
+      "type": "Faculty"
+    },
+    
+    {
+      "donor": "Anonymous",
+      "amount": 5000,
+      "designation": "Transportation",
+      "date": "2026-04-14",
+      "memo": "Transportation",
+      "type": "Organization"
+    }
+  ]
+}

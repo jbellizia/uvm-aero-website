@@ -1,0 +1,18 @@
+{
+  "regular_season": {
+    "label": "Regular Season, 2026-27",
+    "income": [
+        { "source": "SGA Funding", "amount": 0.00 },
+        { "source": "Sponsors", "amount": 0.00 },
+        { "source": "Donations", "amount": 300.00 }
+    ],
+    "expenses": [
+        { "category": "Registration", "amount": 0.00 },
+        { "category": "Motor Controller", "amount": 0.00 },
+        { "category": "New Frames", "amount": 0.00 },
+        { "category": "Other parts", "amount": 0.00 },
+        { "category": "Merch", "amount": 0.00 }
+    ]
+      
+}
+}

@@ -1,0 +1,40 @@
+{% comment %}
+  Formats a number as USD currency: $1,234.56
+  Handles negatives with parentheses: ($50.00)
+  Supports values up to $999,999.99
+
+  Usage: {% include money.html amount=123.4 %}
+{% endcomment -%}
+
+{%- assign _raw = include.amount | times: 1.0 -%}
+
+{%- if _raw < 0 -%}
+  {%- assign _neg = true -%}
+  {%- assign _raw = _raw | times: -1 -%}
+{%- else -%}
+  {%- assign _neg = false -%}
+{%- endif -%}
+
+{%- assign _n = _raw | times: 100 | round | divided_by: 100.0 -%}
+{%- assign _int = _n | floor -%}
+{%- assign _cents = _n | minus: _int | times: 100 | round -%}
+
+{%- if _neg -%}({%- endif -%}
+
+{%- if _int >= 1000 -%}
+  {%- assign _thou = _int | divided_by: 1000 -%}
+  {%- assign _rem = _int | modulo: 1000 -%}
+  {%- if _rem < 10 -%}
+    ${{ _thou }},00{{ _rem }}
+  {%- elsif _rem < 100 -%}
+    ${{ _thou }},0{{ _rem }}
+  {%- else -%}
+    ${{ _thou }},{{ _rem }}
+  {%- endif -%}
+{%- else -%}
+  ${{ _int }}
+{%- endif -%}
+
+.{%- if _cents < 10 -%}0{{ _cents }}{%- else -%}{{ _cents }}{%- endif -%}
+
+{%- if _neg -%}){%- endif -%}
