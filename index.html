@@ -3,72 +3,427 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UVM AERO - Home</title>
+    <title>UVM AERO - Alternative Energy Racing Organization</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050a06',
+                        foreground: '#f5f5f0',
+                        card: '#0c1e10',
+                        accent: '#2a7d4f',
+                        muted: '#7a9e7e',
+                        border: 'rgba(245, 245, 240, 0.12)',
+                    },
+                    fontFamily: {
+                        mono: ["'Andale Mono'", "'Courier New'", 'monospace'],
+                        display: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 44s linear infinite;
+            width: max-content;
+            will-change: transform;
+        }
+        .stroke-accent {
+            color: transparent;
+            -webkit-text-stroke: 2px #2a7d4f;
+        }
+        .stroke-foreground {
+            color: transparent;
+            -webkit-text-stroke: 2px #f5f5f0;
+        }
+        .mobile-menu.hidden-menu {
+            display: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-<!-- Navbar -->
-    <nav class="bg-black text-white shadow-lg">
-        <div class="  container mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <a href="index.html">
-                    <img class="inline mb-2 md:mb-0" src="static/logo.webp" alt="UVM AERO Logo" width=100 height=auto>
-                    <span class="inline text-xl font-bold">UVM AERO</span>
-                </a>
+<body class="bg-background text-foreground font-mono overflow-x-hidden">
+
+<!-- ─── NAV ─── -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
+    <a href="index.html" class="text-2xl font-black tracking-tighter font-display" style="letter-spacing: -0.02em;">
+        <span class="text-accent">UVM</span> AERO
+    </a>
+
+    <div class="hidden md:flex items-center gap-8" style="font-size: 0.72rem; letter-spacing: 0.12em;">
+        <a href="#car" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
+        <a href="#team" class="text-muted hover:text-foreground transition-colors duration-150">Team</a>
+        <a href="#sponsors" class="text-muted hover:text-foreground transition-colors duration-150">Sponsors</a>
+        <a href="#contact" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
+        <a href="#contact" class="ml-4 px-4 py-2 bg-accent text-foreground font-bold hover:bg-primary transition-colors duration-150">JOIN US</a>
+    </div>
+
+    <button id="menu-toggle" class="md:hidden text-foreground text-2xl leading-none" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="mobile-menu hidden-menu fixed inset-0 z-40 bg-background flex flex-col items-start justify-center px-8 gap-6 border-r-4 border-accent font-display">
+    <a href="#car" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
+    <a href="#team" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Team</a>
+    <a href="#sponsors" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Sponsors</a>
+    <a href="#contact" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="relative min-h-screen flex flex-col justify-end pt-24 pb-16 px-6 overflow-hidden" style="background: #050a06;">
+    <div class="absolute inset-0">
+        <img src="static/aeroinsta-1.jpg" alt="UVM AERO racecar" class="w-full h-full object-cover opacity-20" />
+        <div class="absolute inset-0" style="background: linear-gradient(to top, #050a06 40%, rgba(5,10,6,0.5) 70%, transparent 100%);"></div>
+    </div>
+
+    <div class="relative z-10 mb-6 inline-block" style="font-size: 0.72rem; letter-spacing: 0.18em;">
+        <span class="border border-accent text-accent px-3 py-1">ALTERNATIVE ENERGY RACING ORGANIZATION — UVM</span>
+    </div>
+
+    <div class="relative z-10">
+        <h1 class="font-black uppercase leading-none font-display" style="font-size: clamp(5rem, 18vw, 18rem); letter-spacing: -0.02em; line-height: 0.88;">
+            AERO
+            <br />
+            <span class="stroke-accent">RACING</span>
+            <br />
+            <span class="stroke-foreground">FSAE&middot;07</span>
+        </h1>
+    </div>
+
+    <div class="relative z-10 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <p class="text-muted max-w-sm leading-relaxed" style="font-size: 0.95rem;">
+            University of Vermont — designing and building electric open-wheel racecars to compete at Formula Hybrid+Electric.
+        </p>
+        <a href="#car" class="group flex items-center gap-3 bg-foreground text-background px-6 py-3 font-bold text-sm uppercase tracking-widest hover:bg-accent hover:text-foreground transition-colors duration-150">
+            EXPLORE CAR
+            <span class="inline-block group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+    </div>
+
+    <div class="absolute bottom-8 right-8 z-10 flex flex-col items-center gap-2 opacity-50">
+        <span class="text-foreground" style="font-size: 0.6rem; letter-spacing: 0.2em; writing-mode: vertical-rl;">SCROLL</span>
+        <span class="text-foreground animate-bounce">▾</span>
+    </div>
+</section>
+
+<!-- ─── CAR SECTION ─── -->
+<section id="car" class="bg-background border-b border-border">
+    <div class="grid md:grid-cols-2 min-h-[70vh]">
+        <div class="relative overflow-hidden min-h-[40vh] md:min-h-0 bg-card">
+            <img src="static/aeroinsta-1.jpg" alt="UVM AERO racecar detail" class="w-full h-full object-cover opacity-70" />
+            <div class="absolute bottom-0 left-0 right-0 h-1/3" style="background: linear-gradient(to top, #050a06, transparent);"></div>
+            <div class="absolute top-6 left-6" style="font-size: 0.65rem; letter-spacing: 0.15em;">
+                <span class="bg-accent text-black px-2 py-1 font-bold">AERO ELECTRIC</span>
             </div>
-        <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-            <a href="media.html" class="hover:text-green-600 font-medium">Media</a>
-            <a href="our_cars.html" class="hover:text-green-600 font-medium">Our Cars</a>
-            <a href="our_team.html" class="hover:text-green-600 font-medium">Our Team</a>
         </div>
-    </nav>
-    <!-- Block Content -->
-    <div class="h-[500px] bg-[url('static/aeroinsta-1.jpg')] bg-cover bg-center bg-no-repeat">
-  <div class="h-[500px] inset-0 bg-gray-900/40 pointer-events-none">
-      <div class="relative z-10 flex items-center justify-center w-full h-full text-white">
-          <h1 class="text-7xl text-center font-bold leading-[2]">Student Built, <br> Student Driven</h1>
-      </div>
-  </div>
-</div>
-<div class="px-4 py-8">
-  <h2 class="text-center text-gray-500 text-xl font-medium">ABOUT US</h2>
-  <h1 class="text-center text-black leading-normal text-6xl font-bold">What is UVM AERO?</h1>
-  <br>
-  <p class="text-center text-xl">The Alternative Energy Racing Organization is a student-run club at the University of Vermont <br> that designs and builds electric open wheel racecars to compete at <br> Formula Hybrid+Electric, an international collegiate competition.</p>
-  <br>
-  <br>
-  <div class="flex justify-center space-x-4">
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">Get involved</h3>
-      <p class="text-xl">Want to apply your engineering knowledge outside the classroom? AERO is the perfect place to do that</p>
+
+        <div class="p-8 md:p-12 flex flex-col justify-between border-l border-border">
+            <div>
+                <h2 class="font-black uppercase leading-none mb-8 font-display" style="font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: -0.02em;">
+                    THE MACHINE
+                </h2>
+
+                <div class="flex gap-0 mb-8 border border-border" style="font-size: 0.68rem; letter-spacing: 0.12em;">
+                    <button data-tab="specs" class="tab-btn flex-1 py-2.5 uppercase font-bold transition-colors bg-accent text-black hover:text-foreground">Specs</button>
+                    <button data-tab="aero" class="tab-btn flex-1 py-2.5 uppercase font-bold transition-colors text-muted hover:text-foreground">Aero</button>
+                    <button data-tab="elec" class="tab-btn flex-1 py-2.5 uppercase font-bold transition-colors text-muted hover:text-foreground">Electrical</button>
+                </div>
+
+                <!-- TODO: replace placeholder (—) spec values with real figures once available -->
+                <div class="grid">
+                    <div id="tab-specs" class="tab-panel divide-y divide-border [grid-area:1/1] transition-opacity duration-150">
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">MOTOR</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">BATTERY PACK</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">SUSPENSION</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">BRAKES</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">FRAME</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">WHEELBASE</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                    </div>
+
+                    <div id="tab-aero" class="tab-panel divide-y divide-border [grid-area:1/1] opacity-0 pointer-events-none transition-opacity duration-150">
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">FRONT WING</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">REAR WING</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">UNDERTRAY</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">SIDEPODS</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                    </div>
+
+                    <div id="tab-elec" class="tab-panel divide-y divide-border [grid-area:1/1] opacity-0 pointer-events-none transition-opacity duration-150">
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">MOTOR CONTROLLER</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">DASH</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">DATA LOGGING</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                        <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.65rem; letter-spacing: 0.12em;">KILL SWITCH</span><span class="text-foreground text-sm font-medium text-right">—</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-border">
+                <p class="text-muted leading-relaxed text-sm">
+                    Every component on the car is designed, manufactured, and validated in-house by our members — from CAD to carbon layup to final assembly.
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">Develop your skills</h3>
-      <p class="text-xl">Gain CAD modeling, welding, soldering, and other valuable experiences that look great on a résumé</p>
+</section>
+
+<!-- ─── ABOUT / MISSION ─── -->
+<section class="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-5">
+            <span class="text-background/40 block mb-4" style="font-size: 0.68rem; letter-spacing: 0.2em;">01 / MISSION</span>
+            <h2 class="font-black uppercase leading-none text-background font-display" style="font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.02em;">
+                BUILT<br />TO<br />RACE.
+            </h2>
+        </div>
+        <div class="md:col-span-7 space-y-6 pt-0 md:pt-16">
+            <p class="text-background/80 leading-relaxed text-lg">
+                AERO — the Alternative Energy Racing Organization — is a student-run club at the University of Vermont. We design and build electric open-wheel racecars to compete at Formula Hybrid+Electric, an international collegiate competition.
+            </p>
+            <p class="text-background/60 leading-relaxed">
+                Members apply engineering knowledge outside the classroom, gaining CAD, welding, soldering, and other hands-on experience — supported by a team that's always willing to help.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-background/20 mt-8" style="font-family: inherit;">
+                <div class="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
+                    <div class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">TUE 5–7PM</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">MEETING</div>
+                </div>
+                <div class="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
+                    <div class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">VOTEY 118</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">SHOP</div>
+                </div>
+                <div class="py-6 px-4 text-center">
+                    <div class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">UVM</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">BURLINGTON, VT</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">Supportive community</h3>
-      <p class="text-xl">Our members are more than willing to help with classes, professional development, or advice on anything</p>
+</section>
+
+<!-- ─── TEAM ─── -->
+<section id="team" class="bg-background py-24 px-6 border-b border-border">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">THE TEAM</h2>
+            <span class="text-muted pb-1" style="font-size: 0.68rem; letter-spacing: 0.15em;">02 / PEOPLE</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-0 border border-border">
+            <!-- TODO: swap in real member photos when available -->
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-r border-b">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">PRESIDENT</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Alex Benz</div>
+                <div class="text-muted text-xs leading-relaxed">President</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-r border-b">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Caroline Johnson</div>
+                <div class="text-muted text-xs leading-relaxed">Vice President</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-r border-b">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Amanda Johnson</div>
+                <div class="text-muted text-xs leading-relaxed">Secretary</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-b">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Elizabeth Kollarck</div>
+                <div class="text-muted text-xs leading-relaxed">Treasurer</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-r">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">EE</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Sarah Wiederman</div>
+                <div class="text-muted text-xs leading-relaxed">EE Lead</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150 border-r">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">ME</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Adam King</div>
+                <div class="text-muted text-xs leading-relaxed">ME Lead</div>
+            </div>
+            <div class="p-6 border-border hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden flex items-center justify-center">
+                    <span class="text-border" style="font-size: 0.6rem; letter-spacing: 0.1em;">PHOTO</span>
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">CS</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Spenser Kramer</div>
+                <div class="text-muted text-xs leading-relaxed">CS Lead</div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <a href="#contact" class="group flex items-center gap-2 text-accent font-semibold text-sm uppercase tracking-widest hover:text-foreground transition-colors" style="font-size: 0.7rem;">
+                JOIN THE TEAM
+                <span class="inline-block group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+        </div>
     </div>
-  </div>
-</div>
-<div class="bg-black text-white px-4 py-8">
-  <h1 class="text-center leading-normal text-6xl font-bold">Club Information</h1>
-  <br>
-  <div class="flex justify-center space-x-4">
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">Meeting Times</h3>
-      <p class="text-xl">Tuesdays: 5:00pm - 7:00pm <br> Thursdays: 10:30am - 12:30pm <br> Fridays: 4:00pm - 6:00pm</p>
+</section>
+
+<!-- ─── SPONSORS ─── -->
+<section id="sponsors" class="bg-background py-24 px-6 border-b border-border">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">PARTNERS</h2>
+            <span class="text-muted pb-1" style="font-size: 0.68rem; letter-spacing: 0.15em;">03 / SPONSORS</span>
+        </div>
+
+        <!-- TODO: replace placeholder sponsor names with real sponsor logos/names -->
+        <div class="relative overflow-hidden border border-border py-8" style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+            <div class="marquee-track flex gap-16 items-center">
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SUPPORTER</span>
+            </div>
+        </div>
+
+        <div class="mt-10 border border-accent p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+                <p class="text-accent mb-1" style="font-size: 0.65rem; letter-spacing: 0.2em;">BECOME A PARTNER</p>
+                <p class="text-foreground font-semibold text-lg">Support the next generation of motorsport engineers.</p>
+            </div>
+            <a href="#contact" class="shrink-0 px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground transition-colors duration-150">GET IN TOUCH</a>
+        </div>
     </div>
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">Shop Location</h3>
-      <p class="text-xl">Votey Hall, Room 118</p>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="bg-foreground text-background py-24 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+        <div>
+            <span class="text-background/40 block mb-4" style="font-size: 0.68rem; letter-spacing: 0.2em;">04 / CONTACT</span>
+            <h2 class="font-black uppercase leading-none text-background mb-8 font-display" style="font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.02em;">
+                LET'S<br />TALK.
+            </h2>
+            <div class="space-y-4" style="font-size: 0.75rem;">
+                <div class="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                    <span class="text-background/40 w-24 shrink-0 tracking-widest">INSTAGRAM</span>
+                    <a href="https://www.instagram.com/uvmaero/" class="text-background hover:text-accent transition-colors">@uvmaero</a>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                    <span class="text-background/40 w-24 shrink-0 tracking-widest">FACEBOOK</span>
+                    <a href="https://www.facebook.com/UVMAERO/" class="text-background hover:text-accent transition-colors">facebook.com/UVMAERO</a>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                    <span class="text-background/40 w-24 shrink-0 tracking-widest">X</span>
+                    <a href="https://x.com/uvmaero" class="text-background hover:text-accent transition-colors">x.com/uvmaero</a>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                    <span class="text-background/40 w-24 shrink-0 tracking-widest">LINKEDIN</span>
+                    <a href="https://www.linkedin.com/company/uvm-alternative-racing-organization/" class="text-background hover:text-accent transition-colors">UVM Alternative Energy Racing Organization</a>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                    <span class="text-background/40 w-24 shrink-0 tracking-widest">LOCATION</span>
+                    <span class="text-background">Votey Hall, Room 118 — University of Vermont, Burlington VT</span>
+                </div>
+            </div>
+        </div>
+
+        <form class="space-y-4" onsubmit="return false;">
+            <div>
+                <label for="name" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">YOUR NAME</label>
+                <input id="name" type="text" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter your name" />
+            </div>
+            <div>
+                <label for="email" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">EMAIL ADDRESS</label>
+                <input id="email" type="email" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter email address" />
+            </div>
+            <div>
+                <label for="org" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">ORGANIZATION / COMPANY</label>
+                <input id="org" type="text" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter organization / company" />
+            </div>
+            <div>
+                <label for="msg" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">MESSAGE</label>
+                <textarea id="msg" rows="4" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm resize-none" placeholder="Tell us about your interest..."></textarea>
+            </div>
+            <button type="submit" class="w-full py-4 bg-accent text-black font-black text-sm uppercase tracking-widest border-2 border-accent hover:bg-foreground hover:border-background transition-colors duration-150 font-display" style="letter-spacing: 0.15em; font-size: 1rem;">SEND MESSAGE</button>
+        </form>
     </div>
-    <div class="w-1/4 p-4">
-      <h3 class="text-xl font-bold">UVM Club Page</h3>
-      <p class="text-xl">Link: <a class="text-blue-600 font-semibold hover:underline" href="https://clubs.uvm.edu/organization/aero">clubs.uvm.edu/organization/aero</a></p>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="bg-background border-t border-border px-6 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <span class="font-black text-foreground font-display" style="font-size: 1.5rem; letter-spacing: -0.02em;">
+            <span class="text-accent">UVM</span> AERO
+        </span>
+        <span class="text-muted" style="font-size: 0.62rem; letter-spacing: 0.15em;">© 2025 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT</span>
+        <div class="flex gap-6" style="font-size: 0.62rem; letter-spacing: 0.12em;">
+            <a href="https://www.instagram.com/uvmaero/" class="text-muted hover:text-foreground transition-colors">INSTAGRAM</a>
+            <a href="https://www.facebook.com/UVMAERO/" class="text-muted hover:text-foreground transition-colors">FACEBOOK</a>
+            <a href="https://x.com/uvmaero" class="text-muted hover:text-foreground transition-colors">X</a>
+            <a href="https://www.linkedin.com/company/uvm-alternative-racing-organization/" class="text-muted hover:text-foreground transition-colors">LINKEDIN</a>
+        </div>
     </div>
-  </div>
-</div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden-menu');
+    });
+    mobileMenu.querySelectorAll('.mobile-link').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden-menu'));
+    });
+
+    // Spec tab switcher
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach((b) => {
+                b.classList.remove('bg-accent', 'text-black');
+                b.classList.add('text-muted');
+            });
+            btn.classList.add('bg-accent', 'text-black');
+            btn.classList.remove('text-muted');
+
+            const target = btn.dataset.tab;
+            tabPanels.forEach((panel) => {
+                const isActive = panel.id === `tab-${target}`;
+                panel.classList.toggle('opacity-0', !isActive);
+                panel.classList.toggle('pointer-events-none', !isActive);
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
