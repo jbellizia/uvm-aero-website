@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support — UVM AERO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050a06',
+                        foreground: '#f5f5f0',
+                        card: '#0c1e10',
+                        accent: '#2a7d4f',
+                        muted: '#7a9e7e',
+                        border: 'rgba(245, 245, 240, 0.12)',
+                    },
+                    fontFamily: {
+                        mono: ["'Andale Mono'", "'Courier New'", 'monospace'],
+                        display: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .stroke-accent {
+            color: transparent;
+            -webkit-text-stroke: 2px #2a7d4f;
+        }
+        .stroke-foreground {
+            color: transparent;
+            -webkit-text-stroke: 2px #f5f5f0;
+        }
+        .mobile-menu.hidden-menu {
+            display: none;
+        }
+        .progress-fill {
+            transition: width 0.6s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-mono overflow-x-hidden">
+
+<!-- ─── NAV ─── -->
+<!-- NOTE: mirror this same "Support" link into index.html / our_cars.html / our_team.html / media.html's nav so it's consistent site-wide -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
+    <a href="index.html" class="text-2xl font-black tracking-tighter font-display" style="letter-spacing: -0.02em;">
+        <span class="text-accent">UVM</span> AERO
+    </a>
+
+    <div class="hidden md:flex items-center gap-8" style="font-size: 0.72rem; letter-spacing: 0.12em;">
+        <a href="index.html#car" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
+        <a href="index.html#team" class="text-muted hover:text-foreground transition-colors duration-150">Team</a>
+        <a href="index.html#sponsors" class="text-muted hover:text-foreground transition-colors duration-150">Sponsors</a>
+        <a href="support.html" class="text-accent">Support</a>
+        <a href="index.html#contact" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
+        <a href="#donate" class="ml-4 px-4 py-2 bg-accent text-foreground font-bold hover:bg-primary transition-colors duration-150">DONATE</a>
+    </div>
+
+    <button id="menu-toggle" class="md:hidden text-foreground text-2xl leading-none" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="mobile-menu hidden-menu fixed inset-0 z-40 bg-background flex flex-col items-start justify-center px-8 gap-6 border-r-4 border-accent font-display">
+    <a href="index.html#car" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
+    <a href="index.html#team" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Team</a>
+    <a href="index.html#sponsors" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Sponsors</a>
+    <a href="support.html" class="mobile-link text-5xl font-black uppercase text-accent">Support</a>
+    <a href="index.html#contact" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
+</div>
+
+<!-- ─── PAGE HEADER ─── -->
+<section class="relative pt-40 pb-16 px-6 border-b border-border overflow-hidden">
+    <div class="relative z-10 mb-6 inline-block" style="font-size: 0.72rem; letter-spacing: 0.18em;">
+        <span class="border border-accent text-accent px-3 py-1">SUPPORT THE 2026&ndash;27 BUILD</span>
+    </div>
+
+    <h1 class="font-black uppercase leading-none font-display" style="font-size: clamp(3.5rem, 10vw, 9rem); letter-spacing: -0.02em; line-height: 0.9;">
+        SUPPORT OUR
+        <br />
+        <span class="stroke-accent">BUILD.</span>
+    </h1>
+
+    <div class="relative z-10 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <p class="text-muted max-w-sm leading-relaxed" style="font-size: 0.95rem;">
+            Student engineering projects like this are not possible without external support. Here's where the money goes, and how to be part of it.
+        </p>
+        <a href="#donate" class="group flex items-center gap-3 bg-foreground text-background px-6 py-3 font-bold text-sm uppercase tracking-widest hover:bg-accent hover:text-foreground transition-colors duration-150">
+            GIVE NOW
+            <span class="inline-block group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+    </div>
+</section>
+
+<!-- ─── WHY IT MATTERS + LIVE STATS ─── -->
+<section class="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-5">
+            <span class="text-background/40 block mb-4" style="font-size: 0.68rem; letter-spacing: 0.2em;">01 / WHY IT MATTERS</span>
+            <h2 class="font-black uppercase leading-none text-background font-display" style="font-size: clamp(2.5rem, 5.5vw, 5rem); letter-spacing: -0.02em;">
+                EVERY<br />DONATION<br />COUNTS.
+            </h2>
+        </div>
+        <div class="md:col-span-7 space-y-6 pt-0 md:pt-16">
+            <p class="text-background/80 leading-relaxed text-lg">
+                Your support directly funds the motor and motor controller, battery pack and BMS, chassis materials, and the trip to compete at Formula Hybrid+Electric.
+            </p>
+            <p class="text-background/60 leading-relaxed">
+                AERO is a UVM student club, not a separate nonprofit.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-background/20 mt-8">
+                <div class="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
+                    <div id="stat-raised" class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">&mdash;</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">RAISED</div>
+                </div>
+                <div class="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
+                    <div id="stat-goal" class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">&mdash;</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">GOAL</div>
+                </div>
+                <div class="py-6 px-4 text-center">
+                    <div id="stat-donors" class="font-black text-background font-display" style="font-size: 1.5rem; line-height: 1.3;">&mdash;</div>
+                    <div class="text-background/50 text-xs tracking-widest mt-1">DONORS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── BUDGET ─── -->
+<section id="budget" class="bg-background py-24 px-6 border-b border-border">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">WHERE IT GOES</h2>
+            <span class="text-muted pb-1" style="font-size: 0.68rem; letter-spacing: 0.15em;">02 / BUDGET</span>
+        </div>
+
+        <div class="flex gap-0 mb-8 border border-border max-w-md" style="font-size: 0.68rem; letter-spacing: 0.12em;">
+            <button data-tab="build" class="tab-btn flex-1 py-2.5 uppercase font-bold transition-colors bg-accent text-black hover:text-foreground">Build Season</button>
+            <button data-tab="comp" class="tab-btn flex-1 py-2.5 uppercase font-bold transition-colors text-muted hover:text-foreground">Competition</button>
+        </div>
+
+        <!-- TODO: replace placeholder (—) amounts with real figures once the season budget is finalized -->
+        <div class="grid max-w-2xl">
+            <div id="tab-build" class="tab-panel divide-y divide-border [grid-area:1/1] transition-opacity duration-150">
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">MOTOR / MOTOR CONTROLLER</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">HV WIRING &amp; FUSING</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">BATTERY CELLS &amp; BMS</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">CHASSIS MATERIALS</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">TOOLS &amp; CONSUMABLES</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1"><span class="text-foreground font-bold shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">TOTAL</span><span class="text-accent text-sm font-bold text-right">&mdash;</span></div>
+            </div>
+
+            <div id="tab-comp" class="tab-panel divide-y divide-border [grid-area:1/1] opacity-0 pointer-events-none transition-opacity duration-150">
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">REGISTRATION</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">VEHICLE SHIPPING / TOWING</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">TRAVEL</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">LODGING</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-3 gap-4"><span class="text-muted shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">MEALS</span><span class="text-foreground text-sm font-medium text-right">&mdash;</span></div>
+                <div class="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1"><span class="text-foreground font-bold shrink-0" style="font-size: 0.68rem; letter-spacing: 0.12em;">TOTAL</span><span class="text-accent text-sm font-bold text-right">&mdash;</span></div>
+            </div>
+        </div>
+
+        <p class="text-muted leading-relaxed text-sm mt-8 max-w-2xl border-t border-border pt-8">
+            Build-season costs cover parts and tooling for design and fabrication. Competition costs covers registration, shipping the car, and lodging.
+    </div>
+</section>
+
+<!-- ─── DONATE ─── -->
+<section id="donate" class="bg-background py-24 px-6 border-b border-border">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">GIVE</h2>
+            <span class="text-muted pb-1" style="font-size: 0.68rem; letter-spacing: 0.15em;">03 / DONATE</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-start">
+            <!-- Ways to give -->
+            <div class="space-y-4" style="font-size: 0.8rem;">
+                <div class="flex gap-8 items-baseline border-b border-border pb-4">
+                    <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">ONLINE</span>
+                    <!-- PLACEHOLDER: swap in real UVM Foundation giving link or club payment link -->
+                    <a href="#" class="text-foreground hover:text-accent transition-colors">Give via UVM Foundation &rarr;</a>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-border pb-4">
+                    <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">BY CHECK</span>
+                    <span class="text-foreground leading-relaxed">
+                        Payable to <!-- PLACEHOLDER --> "UVM Foundation / AERO Fund"<br />
+                        <!-- PLACEHOLDER: mailing address -->
+                        [address] &middot; Burlington, VT
+                    </span>
+                </div>
+                <div class="flex gap-8 items-baseline border-b border-border pb-4">
+                    <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">SPONSORSHIP</span>
+                    <a href="index.html#sponsors" class="text-foreground hover:text-accent transition-colors">See partner tiers &rarr;</a>
+                </div>
+                <div class="flex gap-8 items-baseline pb-4">
+                    <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">QUESTIONS</span>
+                    <!-- PLACEHOLDER: real contact email -->
+                    <a href="mailto:aero@uvm.edu" class="text-foreground hover:text-accent transition-colors">aero@uvm.edu</a>
+                </div>
+            </div>
+
+            <!-- Progress + feed -->
+            <div class="border border-accent p-8">
+                <p class="text-accent mb-1" style="font-size: 0.65rem; letter-spacing: 0.2em;">2026&ndash;27 ADVANCEMENT FUND</p>
+                <div id="progress-label" class="text-foreground font-semibold text-lg mb-4">&mdash;</div>
+                <div class="w-full h-2 bg-card border border-border overflow-hidden mb-8">
+                    <div id="progress-fill" class="progress-fill h-full bg-accent" style="width: 0%;"></div>
+                </div>
+
+                <ul id="donation-feed" class="divide-y divide-border" style="font-size: 0.78rem;"></ul>
+
+                <a href="#" class="mt-8 block text-center px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground transition-colors duration-150">DONATE NOW</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="bg-background border-t border-border px-6 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <span class="font-black text-foreground font-display" style="font-size: 1.5rem; letter-spacing: -0.02em;">
+            <span class="text-accent">UVM</span> AERO
+        </span>
+        <span class="text-muted" style="font-size: 0.62rem; letter-spacing: 0.15em;">© 2026 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT</span>
+        <div class="flex gap-6" style="font-size: 0.62rem; letter-spacing: 0.12em;">
+            <a href="https://www.instagram.com/uvmaero/" class="text-muted hover:text-foreground transition-colors">INSTAGRAM</a>
+            <a href="https://www.facebook.com/UVMAERO/" class="text-muted hover:text-foreground transition-colors">FACEBOOK</a>
+            <a href="https://x.com/uvmaero" class="text-muted hover:text-foreground transition-colors">X</a>
+            <a href="https://www.linkedin.com/company/uvm-alternative-racing-organization/" class="text-muted hover:text-foreground transition-colors">LINKEDIN</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden-menu');
+    });
+    mobileMenu.querySelectorAll('.mobile-link').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden-menu'));
+    });
+
+    // Budget tab switcher (same pattern as the spec tabs on index.html)
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach((b) => {
+                b.classList.remove('bg-accent', 'text-black');
+                b.classList.add('text-muted');
+            });
+            btn.classList.add('bg-accent', 'text-black');
+            btn.classList.remove('text-muted');
+
+            const target = btn.dataset.tab;
+            tabPanels.forEach((panel) => {
+                const isActive = panel.id === `tab-${target}`;
+                panel.classList.toggle('opacity-0', !isActive);
+                panel.classList.toggle('pointer-events-none', !isActive);
+            });
+        });
+    });
+
+    // ─── Donation data ───
+    // PLACEHOLDER: replace with real donor entries. Swap this whole block for a
+    // fetch('_data/donations.json') call later if you want it driven by the same
+    // JSON file used elsewhere on the site.
+    const GOAL = 5000;
+    const donations = [
+        { donor: 'PLACEHOLDER — e.g. Jane Smith', amount: 100, method: 'paypal', date: '2026-08-01', memo: '' },
+        { donor: 'PLACEHOLDER — e.g. Anonymous', amount: 50, method: 'venmo', date: '2026-08-02', memo: 'Go AERO!' },
+        { donor: 'PLACEHOLDER — e.g. Local Machine Shop', amount: 200, method: 'in-kind', date: '2026-08-03', memo: 'Donated CNC time' },
+    ];
+
+    function formatMoney(n) {
+        return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    const cash = donations.filter((d) => d.method !== 'in-kind');
+    const total = cash.reduce((sum, d) => sum + d.amount, 0);
+    const pct = Math.min(100, Math.round((total / GOAL) * 100));
+
+    document.getElementById('stat-raised').textContent = formatMoney(total);
+    document.getElementById('stat-goal').textContent = formatMoney(GOAL);
+    document.getElementById('stat-donors').textContent = cash.length;
+    document.getElementById('progress-label').textContent = `${formatMoney(total)} of ${formatMoney(GOAL)} raised`;
+    document.getElementById('progress-fill').style.width = pct + '%';
+
+    const feed = document.getElementById('donation-feed');
+    donations.forEach((d) => {
+        const li = document.createElement('li');
+        li.className = 'py-3 flex justify-between items-baseline gap-4';
+        const dateStr = new Date(d.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        li.innerHTML = `
+            <span class="text-foreground truncate">${d.donor}${d.memo ? ` <span class="text-muted">&middot; ${d.memo}</span>` : ''}</span>
+            <span class="text-accent font-bold shrink-0">${formatMoney(d.amount)}</span>
+        `;
+        feed.appendChild(li);
+    });
+</script>
+
+</body>
+</html>
