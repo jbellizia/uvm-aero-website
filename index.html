@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UVM AERO - Alternative Energy Racing Organization</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -363,24 +364,25 @@
             </div>
         </div>
 
-        <form class="space-y-4" onsubmit="return false;">
+        <form id="contact-form" class="space-y-4">
             <div>
                 <label for="name" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">YOUR NAME</label>
-                <input id="name" type="text" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter your name" />
+                <input id="name" name="name" type="text" required class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter your name" />
             </div>
             <div>
                 <label for="email" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">EMAIL ADDRESS</label>
-                <input id="email" type="email" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter email address" />
+                <input id="email" name="email" type="email" required class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter email address" />
             </div>
             <div>
                 <label for="org" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">ORGANIZATION / COMPANY</label>
-                <input id="org" type="text" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter organization / company" />
+                <input id="org" name="organization" type="text" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm" placeholder="Enter organization / company" />
             </div>
             <div>
                 <label for="msg" class="block text-background/50 mb-1" style="font-size: 0.62rem; letter-spacing: 0.18em;">MESSAGE</label>
-                <textarea id="msg" rows="4" class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm resize-none" placeholder="Tell us about your interest..."></textarea>
+                <textarea id="msg" name="message" rows="4" required class="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm resize-none" placeholder="Tell us about your interest..."></textarea>
             </div>
-            <button type="submit" class="w-full py-4 bg-accent text-black font-black text-sm uppercase tracking-widest border-2 border-accent hover:bg-foreground hover:border-background transition-colors duration-150 font-display" style="letter-spacing: 0.15em; font-size: 1rem;">SEND MESSAGE</button>
+            <button id="contact-submit" type="submit" class="w-full py-4 bg-accent text-black font-black text-sm uppercase tracking-widest border-2 border-accent hover:bg-foreground hover:border-background transition-colors duration-150 font-display disabled:opacity-50 disabled:cursor-not-allowed" style="letter-spacing: 0.15em; font-size: 1rem;">SEND MESSAGE</button>
+            <p id="contact-status" role="status" class="text-sm" style="min-height: 1.2em;"></p>
         </form>
     </div>
 </section>
@@ -402,6 +404,37 @@
 </footer>
 
 <script>
+    // Contact form (EmailJS)
+    emailjs.init({ publicKey: 'r7ibJhgq4pkJD67jM' });
+
+    const contactForm = document.getElementById('contact-form');
+    const contactSubmit = document.getElementById('contact-submit');
+    const contactStatus = document.getElementById('contact-status');
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        contactSubmit.disabled = true;
+        contactSubmit.textContent = 'SENDING...';
+        contactStatus.textContent = '';
+        contactStatus.className = 'text-sm';
+
+        emailjs.sendForm('service_7rvng5c', 'template_99kqsgk', contactForm)
+            .then(() => {
+                contactStatus.textContent = "Message sent — we'll get back to you soon.";
+                contactStatus.className = 'text-sm text-accent';
+                contactForm.reset();
+            })
+            .catch((error) => {
+                console.error('EmailJS error:', error);
+                contactStatus.textContent = 'Something went wrong. Please try again or email us directly.';
+                contactStatus.className = 'text-sm text-red-400';
+            })
+            .finally(() => {
+                contactSubmit.disabled = false;
+                contactSubmit.textContent = 'SEND MESSAGE';
+            });
+    });
+
     // Mobile menu toggle
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
