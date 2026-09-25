@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team — UVM AERO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050a06',
+                        foreground: '#f5f5f0',
+                        card: '#0c1e10',
+                        accent: '#2a7d4f',
+                        muted: '#7a9e7e',
+                        border: 'rgba(245, 245, 240, 0.12)',
+                    },
+                    fontFamily: {
+                        mono: ["'Andale Mono'", "'Courier New'", 'monospace'],
+                        display: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .mobile-menu.hidden-menu {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-mono overflow-x-hidden min-h-screen flex flex-col">
+
+<!-- ─── NAV ─── -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
+    <a href="index.html" class="text-2xl font-black tracking-tighter font-display" style="letter-spacing: -0.02em;">
+        <span class="text-accent">UVM</span> AERO
+    </a>
+
+    <div class="hidden md:flex items-center gap-8" style="font-size: 0.72rem; letter-spacing: 0.12em;">
+        <a href="car.html" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
+        <a href="team.html" class="text-accent">Team</a>
+        <a href="sponsors.html" class="text-muted hover:text-foreground transition-colors duration-150">Sponsors</a>
+        <a href="contact.html" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
+        <a href="support.html" class="ml-4 px-4 py-2 bg-accent text-foreground font-bold hover:bg-foreground hover:text-background transition-colors duration-150">DONATE</a>
+    </div>
+
+    <button id="menu-toggle" class="md:hidden text-foreground text-2xl leading-none" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="mobile-menu hidden-menu fixed inset-0 z-40 bg-background flex flex-col items-start justify-center px-8 gap-6 border-r-4 border-accent font-display">
+    <a href="car.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
+    <a href="team.html" class="mobile-link text-5xl font-black uppercase text-accent">Team</a>
+    <a href="sponsors.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Sponsors</a>
+    <a href="support.html" class="mobile-link text-5xl font-black uppercase text-accent hover:text-foreground transition-colors">Donate</a>
+    <a href="contact.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
+</div>
+
+<main class="flex-1 pt-[65px] bg-background">
+<!-- ─── TEAM ─── -->
+<section class="bg-background py-24 px-6 border-b border-border">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">THE TEAM</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-px bg-border border border-border">
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/tyler-meadows.jpg" alt="Tyler Meadows" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Tyler Meadows</div>
+                <div class="text-muted text-xs leading-relaxed">President</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/colden-briggs.jpg" alt="Colden Briggs" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Colden Briggs</div>
+                <div class="text-muted text-xs leading-relaxed">Vice President</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/tobijas-rigdon.jpg" alt="Tobijas Rigdon" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">LEADERSHIP</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Tobijas Rigdon</div>
+                <div class="text-muted text-xs leading-relaxed">Treasurer</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/george-hurd.jpg" alt="George Hurd" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">ELECTRICAL</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">George Hurd</div>
+                <div class="text-muted text-xs leading-relaxed">Electrical Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/marko-soren.jpg" alt="Marko Soren" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">ELECTRICAL</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Marko Soren</div>
+                <div class="text-muted text-xs leading-relaxed">Junior Electrical Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/kam-drew.jpg" alt="Kam Drew" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">MECHANICAL</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Kam Drew</div>
+                <div class="text-muted text-xs leading-relaxed">Mechanical Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/will-miemis.jpg" alt="Will Miemis" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">MECHANICAL</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Will Miemis</div>
+                <div class="text-muted text-xs leading-relaxed">Mechanical Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/nikhil-barnick.jpg" alt="Nikhil Barnick" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">SYSTEMS</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Nikhil Barnick</div>
+                <div class="text-muted text-xs leading-relaxed">Systems Integration Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/sofia-deangelis.jpg" alt="Sofia DeAngelis" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">BUSINESS</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Sofia DeAngelis</div>
+                <div class="text-muted text-xs leading-relaxed">Business Lead</div>
+            </div>
+            <div class="p-6 bg-background hover:bg-card transition-colors duration-150">
+                <div class="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
+                    <img src="static/team/meredith-batey.jpg" alt="Meredith Batey" loading="lazy" class="w-full h-full object-cover" style="object-position: center 25%;">
+                </div>
+                <div class="text-accent mb-2" style="font-size: 0.6rem; letter-spacing: 0.2em;">MEDIA</div>
+                <div class="font-semibold text-foreground text-sm leading-tight mb-1">Meredith Batey</div>
+                <div class="text-muted text-xs leading-relaxed">Social Media</div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <a href="contact.html" class="group flex items-center gap-2 text-accent font-semibold text-sm uppercase tracking-widest hover:text-foreground transition-colors" style="font-size: 0.7rem;">
+                JOIN THE TEAM
+                <span class="inline-block group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="bg-background border-t border-border px-6 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <span class="font-black text-foreground font-display" style="font-size: 1.5rem; letter-spacing: -0.02em;">
+            <span class="text-accent">UVM</span> AERO
+        </span>
+        <span class="text-muted" style="font-size: 0.62rem; letter-spacing: 0.15em;">© 2025 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT</span>
+        <div class="flex gap-6" style="font-size: 0.62rem; letter-spacing: 0.12em;">
+            <a href="https://www.instagram.com/uvmaero/" class="text-muted hover:text-foreground transition-colors">INSTAGRAM</a>
+            <a href="https://www.facebook.com/UVMAERO/" class="text-muted hover:text-foreground transition-colors">FACEBOOK</a>
+            <a href="https://x.com/uvmaero" class="text-muted hover:text-foreground transition-colors">X</a>
+            <a href="https://www.linkedin.com/company/uvm-alternative-racing-organization/" class="text-muted hover:text-foreground transition-colors">LINKEDIN</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden-menu');
+    });
+    mobileMenu.querySelectorAll('.mobile-link').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden-menu'));
+    });
+</script>
+
+</body>
+</html>

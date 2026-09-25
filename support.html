@@ -45,19 +45,17 @@
 <body class="bg-background text-foreground font-mono overflow-x-hidden">
 
 <!-- ─── NAV ─── -->
-<!-- NOTE: mirror this same "Support" link into index.html / our_cars.html / our_team.html / media.html's nav so it's consistent site-wide -->
 <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
     <a href="index.html" class="text-2xl font-black tracking-tighter font-display" style="letter-spacing: -0.02em;">
         <span class="text-accent">UVM</span> AERO
     </a>
 
     <div class="hidden md:flex items-center gap-8" style="font-size: 0.72rem; letter-spacing: 0.12em;">
-        <a href="index.html#car" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
-        <a href="index.html#team" class="text-muted hover:text-foreground transition-colors duration-150">Team</a>
-        <a href="index.html#sponsors" class="text-muted hover:text-foreground transition-colors duration-150">Sponsors</a>
-        <a href="support.html" class="text-accent">Support</a>
-        <a href="index.html#contact" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
-        <a href="#donate" class="ml-4 px-4 py-2 bg-accent text-foreground font-bold hover:bg-primary transition-colors duration-150">DONATE</a>
+        <a href="car.html" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
+        <a href="team.html" class="text-muted hover:text-foreground transition-colors duration-150">Team</a>
+        <a href="sponsors.html" class="text-muted hover:text-foreground transition-colors duration-150">Sponsors</a>
+        <a href="contact.html" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
+        <a href="#donate" class="ml-4 px-4 py-2 bg-accent text-foreground font-bold hover:bg-foreground hover:text-background transition-colors duration-150">DONATE</a>
     </div>
 
     <button id="menu-toggle" class="md:hidden text-foreground text-2xl leading-none" aria-label="Toggle menu">☰</button>
@@ -65,11 +63,10 @@
 
 <!-- Mobile menu -->
 <div id="mobile-menu" class="mobile-menu hidden-menu fixed inset-0 z-40 bg-background flex flex-col items-start justify-center px-8 gap-6 border-r-4 border-accent font-display">
-    <a href="index.html#car" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
-    <a href="index.html#team" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Team</a>
-    <a href="index.html#sponsors" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Sponsors</a>
-    <a href="support.html" class="mobile-link text-5xl font-black uppercase text-accent">Support</a>
-    <a href="index.html#contact" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
+    <a href="car.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
+    <a href="team.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Team</a>
+    <a href="sponsors.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Sponsors</a>
+    <a href="contact.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
 </div>
 
 <!-- ─── PAGE HEADER ─── -->
@@ -194,7 +191,7 @@
                 </div>
                 <div class="flex gap-8 items-baseline border-b border-border pb-4">
                     <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">SPONSORSHIP</span>
-                    <a href="index.html#sponsors" class="text-foreground hover:text-accent transition-colors">See partner tiers &rarr;</a>
+                    <a href="sponsors.html" class="text-foreground hover:text-accent transition-colors">See partner tiers &rarr;</a>
                 </div>
                 <div class="flex gap-8 items-baseline pb-4">
                     <span class="text-muted w-28 shrink-0 tracking-widest" style="font-size: 0.68rem;">QUESTIONS</span>
@@ -213,7 +210,7 @@
 
                 <ul id="donation-feed" class="divide-y divide-border" style="font-size: 0.78rem;"></ul>
 
-                <a href="#" class="mt-8 block text-center px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground transition-colors duration-150">DONATE NOW</a>
+                <a href="https://www.givecampus.com/campaigns/57653/donations/new?a=10657647&designation=aero" class="mt-8 block text-center px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground transition-colors duration-150">DONATE NOW</a>
             </div>
         </div>
     </div>
