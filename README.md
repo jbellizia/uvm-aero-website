@@ -4,7 +4,7 @@ Static site for UVM AERO (Alternative Energy Racing Organization), hosted with G
 
 ## Structure
 
-- `index.html`, `media.html`, `our_cars.html`, `our_team.html` — site pages
+- `index.html` (home), `car.html`, `team.html`, `sponsors.html`, `contact.html` — site pages
 - `static/` — images
 - Styled with [Tailwind CSS](https://tailwindcss.com/) via CDN
 

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sponsors — UVM AERO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050a06',
+                        foreground: '#f5f5f0',
+                        card: '#0c1e10',
+                        accent: '#2a7d4f',
+                        muted: '#7a9e7e',
+                        border: 'rgba(245, 245, 240, 0.12)',
+                    },
+                    fontFamily: {
+                        mono: ["'Andale Mono'", "'Courier New'", 'monospace'],
+                        display: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 44s linear infinite;
+            width: max-content;
+            will-change: transform;
+        }
+        .marquee-track:hover,
+        .marquee-track:focus-within {
+            animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track {
+                animation: none;
+            }
+        }
+        .mobile-menu.hidden-menu {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-mono overflow-x-hidden min-h-screen flex flex-col">
+
+<!-- ─── NAV ─── -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur-sm">
+    <a href="index.html" class="text-2xl font-black tracking-tighter font-display" style="letter-spacing: -0.02em;">
+        <span class="text-accent">UVM</span> AERO
+    </a>
+
+    <div class="hidden md:flex items-center gap-8" style="font-size: 0.72rem; letter-spacing: 0.12em;">
+        <a href="car.html" class="text-muted hover:text-foreground transition-colors duration-150">Car</a>
+        <a href="team.html" class="text-muted hover:text-foreground transition-colors duration-150">Team</a>
+        <a href="sponsors.html" class="text-accent">Sponsors</a>
+        <a href="contact.html" class="text-muted hover:text-foreground transition-colors duration-150">Contact</a>
+    </div>
+
+    <button id="menu-toggle" class="md:hidden text-foreground text-2xl leading-none" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="mobile-menu hidden-menu fixed inset-0 z-40 bg-background flex flex-col items-start justify-center px-8 gap-6 border-r-4 border-accent font-display">
+    <a href="car.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Car</a>
+    <a href="team.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Team</a>
+    <a href="sponsors.html" class="mobile-link text-5xl font-black uppercase text-accent">Sponsors</a>
+    <a href="contact.html" class="mobile-link text-5xl font-black uppercase text-foreground hover:text-accent transition-colors">Contact</a>
+</div>
+
+<main class="flex-1 pt-[65px] bg-background">
+<!-- ─── SPONSORS ─── -->
+<section class="bg-background py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 class="font-black uppercase leading-none font-display" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">PARTNERS</h2>
+        </div>
+
+        <!-- TODO: replace placeholder sponsor names with real sponsor logos/names -->
+        <div class="relative overflow-hidden border border-border py-8" style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+            <div class="marquee-track flex gap-16 items-center">
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SUPPORTER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">YOUR LOGO HERE</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SPONSOR</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">PARTNER</span>
+                <span class="font-black text-muted shrink-0 font-display" style="font-size: 1.2rem; letter-spacing: 0.08em;" aria-hidden="true">SUPPORTER</span>
+            </div>
+        </div>
+
+        <div class="mt-10 border border-accent p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+                <p class="text-accent mb-1" style="font-size: 0.65rem; letter-spacing: 0.2em;">BECOME A PARTNER</p>
+                <p class="text-foreground font-semibold text-lg">Support the next generation of motorsport engineers.</p>
+            </div>
+            <a href="contact.html" class="shrink-0 px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground transition-colors duration-150">GET IN TOUCH</a>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="bg-background border-t border-border px-6 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <span class="font-black text-foreground font-display" style="font-size: 1.5rem; letter-spacing: -0.02em;">
+            <span class="text-accent">UVM</span> AERO
+        </span>
+        <span class="text-muted" style="font-size: 0.62rem; letter-spacing: 0.15em;">© 2025 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT</span>
+        <div class="flex gap-6" style="font-size: 0.62rem; letter-spacing: 0.12em;">
+            <a href="https://www.instagram.com/uvmaero/" class="text-muted hover:text-foreground transition-colors">INSTAGRAM</a>
+            <a href="https://www.facebook.com/UVMAERO/" class="text-muted hover:text-foreground transition-colors">FACEBOOK</a>
+            <a href="https://x.com/uvmaero" class="text-muted hover:text-foreground transition-colors">X</a>
+            <a href="https://www.linkedin.com/company/uvm-alternative-racing-organization/" class="text-muted hover:text-foreground transition-colors">LINKEDIN</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden-menu');
+    });
+    mobileMenu.querySelectorAll('.mobile-link').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden-menu'));
+    });
+</script>
+
+</body>
+</html>
