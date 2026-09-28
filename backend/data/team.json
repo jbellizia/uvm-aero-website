@@ -1,0 +1,12 @@
+[
+  { "name": "Tyler Meadows", "role": "President", "category": "LEADERSHIP", "image": "team/tyler-meadows.jpg" },
+  { "name": "Colden Briggs", "role": "Vice President", "category": "LEADERSHIP", "image": "team/colden-briggs.jpg" },
+  { "name": "Tobijas Rigdon", "role": "Treasurer", "category": "LEADERSHIP", "image": "team/tobijas-rigdon.jpg" },
+  { "name": "George Hurd", "role": "Electrical Lead", "category": "ELECTRICAL", "image": "team/george-hurd.jpg" },
+  { "name": "Marko Soren", "role": "Junior Electrical Lead", "category": "ELECTRICAL", "image": "team/marko-soren.jpg" },
+  { "name": "Kam Drew", "role": "Mechanical Lead", "category": "MECHANICAL", "image": "team/kam-drew.jpg" },
+  { "name": "Will Miemis", "role": "Mechanical Lead", "category": "MECHANICAL", "image": "team/will-miemis.jpg" },
+  { "name": "Nikhil Barnick", "role": "Systems Integration Lead", "category": "SYSTEMS", "image": "team/nikhil-barnick.jpg" },
+  { "name": "Sofia DeAngelis", "role": "Business Lead", "category": "BUSINESS", "image": "team/sofia-deangelis.jpg" },
+  { "name": "Meredith Batey", "role": "Social Media", "category": "MEDIA", "image": "team/meredith-batey.jpg" }
+]

@@ -9,6 +9,58 @@ actual migration (Flask + React rebuild, deployment to UVM's Silk hosting).
 
 ---
 
+## Status as of 2026-09-28 — read this first if you're picking this up
+
+Phases 1–4 (backend scaffold, frontend scaffold, page ports, local dev
+wiring) are **done and verified working** — both in Vite dev mode (`npm run
+dev` + `python app.py`, proxied) and as a production build served directly
+by Flask (`npm run build` then `python app.py` alone). All six pages were
+checked pixel-by-pixel against the original static site in a real browser;
+tab switching, the mobile nav, and API-backed data (team roster, donation
+stats/progress bar, budget) all work. The Contact form correctly POSTs to
+`/api/contact` and shows a friendly error when SMTP isn't configured.
+
+**One bug found and fixed during verification:** the initial Flask app used
+`static_folder=FRONTEND_DIST, static_url_path=""`, which let Flask's
+built-in static handler intercept requests like `/car` before they reached
+the SPA-fallback route, causing a 404 on any direct navigation/refresh of a
+client-side route. Fixed by setting `static_folder=None` and handling all
+serving (API, static files, and the `index.html` SPA fallback) through the
+app's own routes in `backend/app.py`. If you touch that file's routing,
+re-verify direct navigation to a non-root route (e.g. `curl -i
+http://127.0.0.1:5000/car` after `npm run build`) still returns the app
+shell, not a 404.
+
+**What's NOT done — pick up here:**
+
+1. **Contact form SMTP credentials (blocking, in progress).** Decided:
+   Gmail SMTP (`smtp.gmail.com:587`) using an App Password on
+   `uvmaero@gmail.com`, sending to `uvmaero@gmail.com`. The user is waiting
+   on admin approval to generate that App Password. `backend/app.py`
+   already reads `SMTP_USER`/`SMTP_PASS`/`CONTACT_TO` from the process
+   environment — **there is no `.env` loader wired up** (no
+   `python-dotenv`), `backend/.env.example` is documentation only. Once
+   credentials exist, either export them in the shell before running
+   `app.py`, or ask the user whether to add `python-dotenv` for
+   convenience (not added speculatively — wasn't asked for).
+2. **Deployment to Silk (§5)** — nothing done here yet. Follow the deploy
+   steps as written; the account/paths/`.silk.ini` details in §5 haven't
+   changed.
+3. **Donation scrape script (§6)** — not started. Still needs the
+   GiveCampus stats-page URL confirmed and a robots.txt/ToS check before
+   writing anything.
+4. **Dev-site Silk folder naming** — unconfirmed empirically, per §5.
+5. **Placeholder content** — car specs, budget figures, sponsor
+   names/logos, mailing address are still placeholders in
+   `backend/data/*.json`, exactly as before. Don't fill these in with
+   invented data.
+6. **Whether to delete `static/*.html`** — still undecided, still kept.
+
+Nothing above blocks local development or testing the rest of the site —
+only the Contact form's actual email delivery is gated on item 1.
+
+---
+
 ## 1. Background
 
 UVM AERO (Alternative Energy Racing Organization) is a student club at the
