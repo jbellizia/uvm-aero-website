@@ -37,12 +37,13 @@ shell, not a 404.
    Gmail SMTP (`smtp.gmail.com:587`) using an App Password on
    `uvmaero@gmail.com`, sending to `uvmaero@gmail.com`. The user is waiting
    on admin approval to generate that App Password. `backend/app.py`
-   already reads `SMTP_USER`/`SMTP_PASS`/`CONTACT_TO` from the process
-   environment — **there is no `.env` loader wired up** (no
-   `python-dotenv`), `backend/.env.example` is documentation only. Once
-   credentials exist, either export them in the shell before running
-   `app.py`, or ask the user whether to add `python-dotenv` for
-   convenience (not added speculatively — wasn't asked for).
+   reads `SMTP_USER`/`SMTP_PASS`/`CONTACT_TO` from the process
+   environment. **`python-dotenv` is now wired up** (added to
+   `requirements.txt`, `load_dotenv(BASE_DIR / ".env")` called at the top
+   of `app.py`) — once the App Password exists, copy
+   `backend/.env.example` to `backend/.env` and fill in the real values;
+   `.env` is already gitignored. No env export needed before running
+   `app.py`.
 2. **Deployment to Silk (§5)** — nothing done here yet. Follow the deploy
    steps as written; the account/paths/`.silk.ini` details in §5 haven't
    changed.

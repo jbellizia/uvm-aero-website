@@ -4,11 +4,14 @@ import smtplib
 from email.message import EmailMessage
 from pathlib import Path
 
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
+
+load_dotenv(BASE_DIR / ".env")
 
 app = Flask(__name__, static_folder=None)
 
