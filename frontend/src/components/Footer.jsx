@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <img src="/logo.png" alt="UVM AERO Formula Motorsport" className="h-12 w-auto" />
         <span className="text-muted" style={{ fontSize: '0.62rem', letterSpacing: '0.15em' }}>
-          © 2026 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT
+                  © 2026 AERO — ALTERNATIVE ENERGY RACING ORGANIZATION — UNIVERSITY OF VERMONT — TEST TEST TEST
         </span>
         <div className="flex gap-6" style={{ fontSize: '0.62rem', letterSpacing: '0.12em' }}>
           {SOCIAL_LINKS.map((link) => (
