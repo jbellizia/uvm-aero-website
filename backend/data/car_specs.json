@@ -1,0 +1,22 @@
+{
+  "specs": [
+    { "label": "MOTOR", "value": "—" },
+    { "label": "BATTERY PACK", "value": "—" },
+    { "label": "SUSPENSION", "value": "—" },
+    { "label": "BRAKES", "value": "—" },
+    { "label": "FRAME", "value": "—" },
+    { "label": "WHEELBASE", "value": "—" }
+  ],
+  "aero": [
+    { "label": "FRONT WING", "value": "—" },
+    { "label": "REAR WING", "value": "—" },
+    { "label": "UNDERTRAY", "value": "—" },
+    { "label": "SIDEPODS", "value": "—" }
+  ],
+  "electrical": [
+    { "label": "MOTOR CONTROLLER", "value": "—" },
+    { "label": "DASH", "value": "—" },
+    { "label": "DATA LOGGING", "value": "—" },
+    { "label": "KILL SWITCH", "value": "—" }
+  ]
+}

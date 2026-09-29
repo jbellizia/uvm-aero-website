@@ -1,0 +1,7 @@
+{
+  "goal": 5000,
+  "donations": [
+    { "donor": "PLACEHOLDER", "amount": 100, "method": "paypal", "date": "2026-08-01", "memo": "" },
+    { "donor": "PLACEHOLDER", "amount": 50, "method": "venmo", "date": "2026-08-02", "memo": "" }
+  ]
+}
