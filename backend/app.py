@@ -1,3 +1,4 @@
+import hmac
 import json
 import os
 import smtplib
@@ -5,7 +6,7 @@ from email.message import EmailMessage
 from pathlib import Path
 
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, Response, jsonify, request, send_from_directory
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -14,6 +15,33 @@ FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
 load_dotenv(BASE_DIR / ".env")
 
 app = Flask(__name__, static_folder=None)
+
+# Set both only in the staging .env to put the whole site behind Basic Auth.
+DEV_AUTH_USER = os.environ.get("DEV_AUTH_USER")
+DEV_AUTH_PASS = os.environ.get("DEV_AUTH_PASS")
+
+
+@app.before_request
+def require_dev_auth():
+    if not (DEV_AUTH_USER and DEV_AUTH_PASS):
+        return None
+    auth = request.authorization
+    if (
+        auth
+        and hmac.compare_digest(auth.username or "", DEV_AUTH_USER)
+        and hmac.compare_digest(auth.password or "", DEV_AUTH_PASS)
+    ):
+        return None
+    return Response(
+        "Authentication required", 401, {"WWW-Authenticate": 'Basic realm="AERO dev"'}
+    )
+
+
+@app.after_request
+def noindex_dev(response):
+    if DEV_AUTH_USER and DEV_AUTH_PASS:
+        response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response
 
 
 def load_json(name):
