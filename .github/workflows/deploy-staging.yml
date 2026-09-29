@@ -11,7 +11,7 @@ jobs:
     env:
       SSH_HOST: silk.uvm.edu
       SSH_USER: aero
-      TARGET_ROOT: /users/a/e/aero/www-root-dev
+      TARGET_ROOT: /users/a/e/aero/dev.aero.w3.uvm.edu-root
       SILK_HOSTNAME: dev.aero.w3.uvm.edu
     steps:
       - uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
       - name: Install deps and reload
         run: |
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes "$SSH_USER@$SSH_HOST" \
-            "cd $TARGET_ROOT/backend && venv/bin/pip install -q -r requirements.txt && chmod u+x wsgi.py && silk app $SILK_HOSTNAME load"
+            "cd $TARGET_ROOT/backend && venv/bin/pip install -q -r requirements.txt && chmod u+x wsgi.py && silk app '$SILK_HOSTNAME/*' load"
 
       - name: Clean up deploy key
         if: always()

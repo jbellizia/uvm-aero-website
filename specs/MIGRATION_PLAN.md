@@ -44,18 +44,19 @@ shell, not a 404.
    `backend/.env.example` to `backend/.env` and fill in the real values;
    `.env` is already gitignored. No env export needed before running
    `app.py`.
-2. **Deployment to Silk (§5)** — nothing done here yet. Follow the deploy
-   steps as written; the account/paths/`.silk.ini` details in §5 haven't
-   changed.
+2. **Deployment to Silk (§5)** — staging (`dev.aero.w3.uvm.edu`) is live
+   and deploys via `.github/workflows/deploy-staging.yml` on push to `dev`.
+   Production (`aero.w3.uvm.edu`) still needs the one-time server setup in
+   §5 (venv, `.silk.ini`, `silk site ... update`) before its workflow can
+   succeed.
 3. **Donation scrape script (§6)** — not started. Still needs the
    GiveCampus stats-page URL confirmed and a robots.txt/ToS check before
    writing anything.
-4. **Dev-site Silk folder naming** — unconfirmed empirically, per §5.
-5. **Placeholder content** — car specs, budget figures, sponsor
+4. **Placeholder content** — car specs, budget figures, sponsor
    names/logos, mailing address are still placeholders in
    `backend/data/*.json`, exactly as before. Don't fill these in with
    invented data.
-6. **Whether to delete `static/*.html`** — still undecided, still kept.
+5. **Whether to delete `static/*.html`** — still undecided, still kept.
 
 Nothing above blocks local development or testing the rest of the site —
 only the Contact form's actual email delivery is gated on item 1.
@@ -267,8 +268,8 @@ for these pages matters to the user, ask before adding SSR — don't add it
 speculatively.
 
 In production, Flask serves the built `frontend/dist/` as static files
-(via Silk's `document-root` setting, see §5) *and* the `/api/*` JSON
-endpoints. In local dev, run Vite's dev server on its own port with a
+(through its own routes, with Silk's app mounted at `/*`, see §5) *and*
+the `/api/*` JSON endpoints. In local dev, run Vite's dev server on its own port with a
 proxy to Flask for `/api` (Vite's `server.proxy` config) so both hot-reload
 independently.
 
@@ -315,42 +316,45 @@ against this account:
   `~/www-root`. There's no domain-named folder for it — it's implicit.
 - Additional custom domains get a folder named `<domain>-root` (confirmed:
   `~/uvmaero.org-root`, `~/documentation.uvmaero.org-root.legacy`).
-- Additional "sitename" subdomains under the account
-  (`<sitename>.aero.w3.uvm.edu`) are described as "generally available" —
-  **exact folder-naming convention for these was not confirmed in the docs
-  we had access to.** First thing to try: `~/dev.aero.w3.uvm.edu-root`
-  (following the same pattern as custom domains). If it doesn't get picked
-  up within ~10 minutes of creating it, look for a more specific "creating
-  a site" page on silk.uvm.edu, and failing that, email SAA
-  (Systems and Application Administration).
+- Additional sites under the account (`<sitename>.aero.w3.uvm.edu`) must be
+  requested from SAA. **Confirmed:** SAA created the staging site with its
+  root at `~/dev.aero.w3.uvm.edu-root` (same `<hostname>-root` pattern as
+  custom domains).
 - Python apps run via **NGINX Unit**, configured through a `.silk.ini` file
-  at the site root. Example (`~/www-root/.silk.ini`):
+  at the site root. Flask serves everything (API, built frontend, SPA
+  fallback), so the app takes `uri = /*`. The repo copies live in
+  `deploy/www-root.silk.ini` (prod) and `deploy/www-root-dev.silk.ini`
+  (staging); CI does **not** sync them — copy them to the site root by hand
+  when they change. Staging (`~/dev.aero.w3.uvm.edu-root/.silk.ini`):
   ```ini
-  [general]
-  document-root = frontend/dist
-
   [python]
   version = 3.12
 
   [app]
   type = python
   root = backend
-  uri = /api/*
+  uri = /*
   startup-script = wsgi.py
-  venv-path = /users/a/e/aero/www-root/backend/venv
+  venv-path = /users/a/e/aero/dev.aero.w3.uvm.edu-root/backend/venv
   ```
-  (`root`/`document-root` paths are relative to the site root — adjust to
-  match wherever the built frontend and backend actually land; confirm the
-  exact `venv-path` absolute path matches this account's home, which per
-  the `authorized_keys` file listing is `/users/a/e/aero/`.)
+- With no `document-root` set, Silk requires `<app root>/public/` to exist
+  (`check-config` fails otherwise). It's committed empty as
+  `backend/public/.gitkeep` so CI's `rsync --delete` doesn't remove it.
 - `startup-script` (`wsgi.py`) must be executable: `chmod u+x wsgi.py`.
 - Venvs on Silk **don't support `activate`** — always invoke
   `venv/bin/python` / `venv/bin/pip` directly, including inside any deploy
-  script.
-- After creating or changing `.silk.ini`, run `silk app <hostname> load`
-  (e.g. `silk app aero.w3.uvm.edu load`) to apply it. Same command reloads
-  after code changes — Unit doesn't hot-reload Python changes.
-- Logs: `/usr/lib/unit-user-aero/unit.log`.
+  script. Create the venv from inside the site directory, after
+  `.silk.ini` exists — `python3` resolves to the version that file pins.
+- `silk` CLI commands (the docs' syntax is out of date; these are what the
+  installed CLI accepts). App URLs include the `uri` pattern, so `/*` here:
+  - `silk site list` — sites on the account.
+  - `silk site <hostname> config-diff` / `update` — preview / apply
+    `.silk.ini` changes. Required before a new app shows up.
+  - `silk app '<hostname>/*' check-config` — validate the app config.
+  - `silk app '<hostname>/*' load` — load, or reload after code changes
+    (Unit doesn't hot-reload Python).
+- Logs: `/usr/lib/unit-user-aero/unit.log` (app server);
+  `silk site <hostname> logs [--type=error]` (web server).
 - Available Python versions via `.silk.ini`: `3.10`, `3.12` (default),
   `3.14`. Node via mise is currently pinned to `20` in `~/.mise.toml`
   (`[tools] node = "20"`) — fine for building the React app with Vite.
@@ -359,28 +363,32 @@ against this account:
 ```
 ~/www-root                          -> NEW production site (aero.w3.uvm.edu)
 ~/www-root.legacy-wiki               -> old MediaWiki, preserved, not served
-~/dev.aero.w3.uvm.edu-root (tbd)     -> staging deployment
+~/dev.aero.w3.uvm.edu-root           -> staging deployment (dev.aero.w3.uvm.edu)
 ~/documentation.uvmaero.org-root.legacy  -> old, untouched, out of scope
 ~/uvmaero.org-root                   -> empty, domain lost, out of scope
 ```
 
-### Deploy steps (manual first pass; scripting/CI is a later optimization,
-don't build it speculatively now)
-1. `npm run build` locally in `frontend/` → produces `frontend/dist/`.
-2. Copy the repo (or just `backend/` + `frontend/dist/`) to the server —
-   `scp`/`rsync` over the SSH key already set up for this account (now
-   living in `~/.ssh/aero` locally, **not** in the repo).
-3. On the server, inside the site's `backend/`:
-   `python3 -m venv venv && ./venv/bin/pip install -r requirements.txt`
-4. Write/update `.silk.ini` as above.
-5. `chmod u+x backend/wsgi.py`
-6. `silk app aero.w3.uvm.edu load`
-7. Verify: load `https://aero.w3.uvm.edu/` and hit a couple of `/api/*`
-   endpoints directly.
+### Deploy
 
-Do the same against `dev.aero.w3.uvm.edu` first as a dry run before
-touching the production hostname, once that site's doc-root naming is
-confirmed.
+Routine deploys run through CI: `.github/workflows/deploy-staging.yml`
+(push to `dev`) and `deploy-prod.yml` (push to `main`). Each builds the
+frontend, rsyncs `backend/` and `frontend/dist/` to the site root,
+reinstalls requirements into the existing venv, and reloads the app.
+
+One-time server setup per site (done for staging; still needed for prod,
+with `~/www-root` and `aero.w3.uvm.edu`). CI assumes the venv exists:
+1. Copy the matching `deploy/*.silk.ini` to `<site root>/.silk.ini`.
+2. Get code in place (run the workflow, or rsync `backend/` +
+   `frontend/dist/` by hand). The venv step fails until it's there.
+3. `cd <site root>/backend && python3 --version` (should print 3.12.x),
+   then `python3 -m venv venv && venv/bin/pip install -r requirements.txt`.
+4. `chmod u+x wsgi.py`; `mkdir -p public` if it's not already there.
+5. `silk site <hostname> update`, then `silk app '<hostname>/*' list` to
+   see the app. The first app on a site can take up to ~10 minutes to
+   appear.
+6. `silk app '<hostname>/*' check-config`, then `silk app '<hostname>/*' load`.
+7. Verify: `https://<hostname>/`, a direct load of `/car` (should return
+   the app shell, not a 404), and a couple of `/api/*` endpoints.
 
 ## 6. Donation data — daily scrape (per user request)
 
@@ -420,7 +428,8 @@ and confirm the right page before writing the scraper) and writes
 
 1. **Contact form destination** (§2, `contact.html`) — email via SMTP, log
    to a file, or leave inert for now?
-2. **Exact dev-site folder name** on Silk — confirm empirically (§5).
+2. ~~**Exact dev-site folder name** on Silk~~ — resolved:
+   `~/dev.aero.w3.uvm.edu-root` (§5).
 3. **Donation scrape source** — exact GiveCampus URL/endpoint to pull from,
    and whether scraping is even the right call vs. manual updates (§6).
 4. **Placeholder content** — car specs, budget figures, sponsor names,
