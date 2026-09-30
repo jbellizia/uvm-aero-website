@@ -11,6 +11,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, request, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -19,6 +20,9 @@ FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
 load_dotenv(BASE_DIR / ".env")
 
 app = Flask(__name__, static_folder=None)
+# Silk serves the app behind a reverse proxy, so remote_addr is the proxy's IP for
+# every visitor. Take the client IP from the one X-Forwarded-For entry the proxy adds.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
 # Set both only in the staging .env to put the whole site behind Basic Auth.
 DEV_AUTH_USER = os.environ.get("DEV_AUTH_USER")
