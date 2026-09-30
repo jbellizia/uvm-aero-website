@@ -1,7 +1,11 @@
 import hmac
 import json
 import os
+import re
 import smtplib
+import threading
+import time
+from collections import defaultdict, deque
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -74,16 +78,57 @@ def budget():
     return jsonify(load_json("budget.json"))
 
 
+@app.get("/api/site")
+def site():
+    return jsonify(load_json("site.json"))
+
+
+CONTACT_MAX_LENGTHS = {"name": 200, "email": 254, "org": 200, "message": 5000}
+# Simple shape check; also rejects CR/LF, which would break the email headers.
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+# Best-effort, in-memory: resets on reload and is counted per worker process.
+CONTACT_RATE_LIMIT = 5
+CONTACT_RATE_WINDOW = 60 * 60  # seconds
+_contact_hits = defaultdict(deque)
+_contact_hits_lock = threading.Lock()
+
+
+def contact_rate_limited(key):
+    now = time.monotonic()
+    with _contact_hits_lock:
+        hits = _contact_hits[key]
+        while hits and now - hits[0] > CONTACT_RATE_WINDOW:
+            hits.popleft()
+        if len(hits) >= CONTACT_RATE_LIMIT:
+            return True
+        hits.append(now)
+        return False
+
+
 @app.post("/api/contact")
 def contact():
-    data = request.get_json(silent=True) or {}
-    name = (data.get("name") or "").strip()
-    email = (data.get("email") or "").strip()
-    org = (data.get("org") or "").strip()
-    message = (data.get("message") or "").strip()
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        data = {}
+
+    # Honeypot: the "website" field is hidden from people, so only bots fill it.
+    # Pretend success so they don't retry.
+    if data.get("website"):
+        return jsonify({"ok": True})
+
+    fields = {k: str(data.get(k) or "").strip() for k in CONTACT_MAX_LENGTHS}
+    name, email, org, message = (fields[k] for k in ("name", "email", "org", "message"))
 
     if not name or not email or not message:
         return jsonify({"error": "name, email, and message are required"}), 400
+    if any(len(fields[k]) > limit for k, limit in CONTACT_MAX_LENGTHS.items()):
+        return jsonify({"error": "one or more fields are too long"}), 400
+    if not EMAIL_RE.match(email) or "\r" in name or "\n" in name:
+        return jsonify({"error": "invalid name or email"}), 400
+
+    if contact_rate_limited(request.remote_addr):
+        return jsonify({"error": "too many messages, try again later"}), 429
 
     smtp_user = os.environ.get("SMTP_USER")
     smtp_pass = os.environ.get("SMTP_PASS")
@@ -107,7 +152,7 @@ def contact():
             server.starttls()
             server.login(smtp_user, smtp_pass)
             server.send_message(msg)
-    except smtplib.SMTPException:
+    except (smtplib.SMTPException, OSError):
         app.logger.exception("Failed to send contact form email")
         return jsonify({"error": "failed to send message"}), 502
 

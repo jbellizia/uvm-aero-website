@@ -9,9 +9,29 @@ function formatMoney(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
 
+// Values are numbers, or null when not yet known. The total is only shown once every item is known.
+function BudgetTable({ items }) {
+  const rows = items.map((item) => ({ label: item.label, value: item.value == null ? '—' : formatMoney(item.value) }));
+  const complete = items.every((item) => typeof item.value === 'number');
+  // Sum the rounded values so the total matches the rows as displayed.
+  const total = items.reduce((sum, item) => sum + Math.round(item.value ?? 0), 0);
+  return (
+    <>
+      <SpecTable rows={rows} labelSize="0.68rem" />
+      <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
+        <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
+          TOTAL
+        </span>
+        <span className="text-accent text-sm font-bold text-right">{complete ? formatMoney(total) : '—'}</span>
+      </div>
+    </>
+  );
+}
+
 export default function Support() {
   const [donationData, setDonationData] = useState(null);
   const [budget, setBudget] = useState(null);
+  const [site, setSite] = useState(null);
 
   useEffect(() => {
     fetch('/api/donations')
@@ -22,6 +42,10 @@ export default function Support() {
       .then((res) => res.json())
       .then(setBudget)
       .catch(() => setBudget(null));
+    fetch('/api/site')
+      .then((res) => res.json())
+      .then(setSite)
+      .catch(() => setSite(null));
   }, []);
 
   const cash = donationData ? donationData.donations.filter((d) => d.method !== 'in-kind') : [];
@@ -36,34 +60,8 @@ export default function Support() {
 
   const budgetPanels = budget
     ? [
-        {
-          key: 'build',
-          content: (
-            <>
-              <SpecTable rows={budget.build.items} labelSize="0.68rem" />
-              <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
-                <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
-                  TOTAL
-                </span>
-                <span className="text-accent text-sm font-bold text-right">{budget.build.total}</span>
-              </div>
-            </>
-          ),
-        },
-        {
-          key: 'comp',
-          content: (
-            <>
-              <SpecTable rows={budget.competition.items} labelSize="0.68rem" />
-              <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
-                <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
-                  TOTAL
-                </span>
-                <span className="text-accent text-sm font-bold text-right">{budget.competition.total}</span>
-              </div>
-            </>
-          ),
-        },
+        { key: 'build', content: <BudgetTable items={budget.build.items} /> },
+        { key: 'comp', content: <BudgetTable items={budget.competition.items} /> },
       ]
     : [];
 
@@ -197,16 +195,20 @@ export default function Support() {
                   BY CHECK
                 </span>
                 <span className="text-foreground leading-relaxed">
-                  Payable to "UVM Foundation / AERO Fund"
-                  <br />
-                  [address] &middot; Burlington, VT
+                  {site && (
+                    <>
+                      Payable to "{site.checkPayableTo}"
+                      <br />
+                      {site.checkAddress}
+                    </>
+                  )}
                 </span>
               </div>
               <div className="flex gap-8 items-baseline border-b border-border pb-4">
                 <span className="text-muted w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   SPONSORSHIP
                 </span>
-                <Link to="/sponsors" className="text-foreground hover:text-accent transition-colors">
+                <Link to={site?.partnerTiersPath ?? '/sponsors'} className="text-foreground hover:text-accent transition-colors">
                   See partner tiers &rarr;
                 </Link>
               </div>
@@ -214,9 +216,11 @@ export default function Support() {
                 <span className="text-muted w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   QUESTIONS
                 </span>
-                <a href="mailto:aero@uvm.edu" className="text-foreground hover:text-accent transition-colors">
-                  aero@uvm.edu
-                </a>
+                {site && (
+                  <a href={`mailto:${site.questionsEmail}`} className="text-foreground hover:text-accent transition-colors">
+                    {site.questionsEmail}
+                  </a>
+                )}
               </div>
             </div>
 
