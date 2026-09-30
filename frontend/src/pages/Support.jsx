@@ -208,8 +208,8 @@ export default function Support() {
                 <span className="text-muted w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   SPONSORSHIP
                 </span>
-                <Link to={site?.partnerTiersPath ?? '/sponsors'} className="text-foreground hover:text-accent transition-colors">
-                  See partner tiers &rarr;
+                <Link to="/sponsors" className="text-foreground hover:text-accent transition-colors">
+                  View sponsors &rarr;
                 </Link>
               </div>
               <div className="flex gap-8 items-baseline pb-4">
