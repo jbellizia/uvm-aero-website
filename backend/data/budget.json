@@ -1,22 +1,20 @@
 {
   "build": {
     "items": [
-      { "label": "MOTOR / MOTOR CONTROLLER", "value": "—" },
-      { "label": "HV WIRING & FUSING", "value": "—" },
-      { "label": "BATTERY CELLS & BMS", "value": "—" },
-      { "label": "CHASSIS MATERIALS", "value": "—" },
-      { "label": "TOOLS & CONSUMABLES", "value": "—" }
-    ],
-    "total": "—"
+      { "label": "MOTOR / MOTOR CONTROLLER", "value": null },
+      { "label": "HV WIRING & FUSING", "value": null },
+      { "label": "BATTERY CELLS & BMS", "value": null },
+      { "label": "CHASSIS MATERIALS", "value": null },
+      { "label": "TOOLS & CONSUMABLES", "value": null }
+    ]
   },
   "competition": {
     "items": [
-      { "label": "REGISTRATION", "value": "—" },
-      { "label": "VEHICLE SHIPPING / TOWING", "value": "—" },
-      { "label": "TRAVEL", "value": "—" },
-      { "label": "LODGING", "value": "—" },
-      { "label": "MEALS", "value": "—" }
-    ],
-    "total": "—"
+      { "label": "REGISTRATION", "value": null },
+      { "label": "VEHICLE SHIPPING / TOWING", "value": null },
+      { "label": "TRAVEL", "value": null },
+      { "label": "LODGING", "value": null },
+      { "label": "MEALS", "value": null }
+    ]
   }
 }

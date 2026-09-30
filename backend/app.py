@@ -78,6 +78,11 @@ def budget():
     return jsonify(load_json("budget.json"))
 
 
+@app.get("/api/site")
+def site():
+    return jsonify(load_json("site.json"))
+
+
 CONTACT_MAX_LENGTHS = {"name": 200, "email": 254, "org": 200, "message": 5000}
 # Simple shape check; also rejects CR/LF, which would break the email headers.
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
