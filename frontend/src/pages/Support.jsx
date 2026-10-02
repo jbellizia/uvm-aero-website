@@ -199,6 +199,8 @@ export default function Support() {
                     <>
                       Payable to "{site.checkPayableTo}"
                       <br />
+                      Memo: "{site.checkMemo}"
+                      <br />
                       {site.checkAddress}
                     </>
                   )}

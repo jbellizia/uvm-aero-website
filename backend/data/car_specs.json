@@ -1,17 +1,17 @@
 {
   "specs": [
-    { "label": "MOTOR", "value": "—" },
-    { "label": "BATTERY PACK", "value": "—" },
-    { "label": "SUSPENSION", "value": "—" },
-    { "label": "BRAKES", "value": "—" },
-    { "label": "FRAME", "value": "—" },
+    { "label": "MOTOR", "value": "Emrax 228 MV" },
+    { "label": "BATTERY PACK", "value": "Custom-built" },
+    { "label": "SUSPENSION", "value": "Cane Creek Kitsuma shocks, custom A-arms & linkage" },
+    { "label": "BRAKES", "value": "Wilwood" },
+    { "label": "FRAME", "value": "In-house manufactured" },
     { "label": "WHEELBASE", "value": "—" }
   ],
   "aero": [
-    { "label": "FRONT WING", "value": "—" },
-    { "label": "REAR WING", "value": "—" },
+    { "label": "FRONT WING", "value": "None (yet!)" },
+    { "label": "REAR WING", "value": "None (yet!)" },
     { "label": "UNDERTRAY", "value": "—" },
-    { "label": "SIDEPODS", "value": "—" }
+    { "label": "SIDEPODS", "value": "None (yet!)" }
   ],
   "electrical": [
     { "label": "MOTOR CONTROLLER", "value": "—" },
