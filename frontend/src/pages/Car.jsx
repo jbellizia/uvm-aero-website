@@ -51,7 +51,7 @@ export default function Car() {
                 THE MACHINE
               </h2>
 
-              {specs && <Tabs tabs={tabs} panels={panels} />}
+              {specs && <Tabs tabs={tabs} panels={panels} keepHeight />}
             </div>
 
             <div className="mt-8 pt-8 border-t border-border">

@@ -1,5 +1,6 @@
 {
-  "checkPayableTo": "UVM Foundation / AERO Fund",
-  "checkAddress": "[address] · Burlington, VT",
+  "checkPayableTo": "UVM Foundation",
+  "checkMemo": "AERO Club",
+  "checkAddress": "411 Main Street · Burlington, VT 05401",
   "questionsEmail": "uvmaero@gmail.com"
 }
