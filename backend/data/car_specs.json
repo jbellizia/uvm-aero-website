@@ -5,18 +5,17 @@
     { "label": "SUSPENSION", "value": "Cane Creek Kitsuma shocks, custom A-arms & linkage" },
     { "label": "BRAKES", "value": "Wilwood" },
     { "label": "FRAME", "value": "In-house manufactured" },
-    { "label": "WHEELBASE", "value": "—" }
+    { "label": "WHEELBASE", "value": null }
   ],
   "aero": [
     { "label": "FRONT WING", "value": "None (yet!)" },
     { "label": "REAR WING", "value": "None (yet!)" },
-    { "label": "UNDERTRAY", "value": "—" },
+    { "label": "UNDERTRAY", "value": null },
     { "label": "SIDEPODS", "value": "None (yet!)" }
   ],
   "electrical": [
-    { "label": "MOTOR CONTROLLER", "value": "—" },
-    { "label": "DASH", "value": "—" },
-    { "label": "DATA LOGGING", "value": "—" },
-    { "label": "KILL SWITCH", "value": "—" }
+    { "label": "MOTOR CONTROLLER", "value": "DTI HV-550" },
+    { "label": "DASH", "value": "Custom design, Raspberry Pi 3 based" },
+    { "label": "DATA LOGGING", "value": "Custom STM32 G4 DAQ (sponsored SEED project)" }
   ]
 }

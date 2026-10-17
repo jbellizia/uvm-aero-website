@@ -9,12 +9,12 @@ function formatMoney(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
 
-// Values are numbers, or null when not yet known. The total is only shown once every item is known.
+// Values are numbers, or null when not yet known. Unknown items are hidden and the total sums the known ones.
 function BudgetTable({ items }) {
-  const rows = items.map((item) => ({ label: item.label, value: item.value == null ? '—' : formatMoney(item.value) }));
-  const complete = items.every((item) => typeof item.value === 'number');
+  const known = items.filter((item) => typeof item.value === 'number');
+  const rows = known.map((item) => ({ label: item.label, value: formatMoney(item.value) }));
   // Sum the rounded values so the total matches the rows as displayed.
-  const total = items.reduce((sum, item) => sum + Math.round(item.value ?? 0), 0);
+  const total = known.reduce((sum, item) => sum + Math.round(item.value), 0);
   return (
     <>
       <SpecTable rows={rows} labelSize="0.68rem" />
@@ -22,7 +22,7 @@ function BudgetTable({ items }) {
         <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
           TOTAL
         </span>
-        <span className="text-accent text-sm font-bold text-right">{complete ? formatMoney(total) : '—'}</span>
+        <span className="text-accent text-sm font-bold text-right">{formatMoney(total)}</span>
       </div>
     </>
   );
@@ -55,12 +55,14 @@ export default function Support() {
 
   const budgetTabs = [
     { key: 'build', label: 'Build Season' },
+    { key: 'equipment', label: 'Equipment' },
     { key: 'comp', label: 'Competition' },
   ];
 
   const budgetPanels = budget
     ? [
-        { key: 'build', content: <BudgetTable items={budget.build.items} /> },
+        { key: 'build', content: <BudgetTable items={budget.beatty.items} /> },
+        { key: 'equipment', content: <BudgetTable items={budget.equipment.items} /> },
         { key: 'comp', content: <BudgetTable items={budget.competition.items} /> },
       ]
     : [];
@@ -160,8 +162,9 @@ export default function Support() {
           {budget && <Tabs tabs={budgetTabs} panels={budgetPanels} className="max-w-2xl" />}
 
           <p className="text-muted leading-relaxed text-sm mt-8 max-w-2xl border-t border-border pt-8">
-            Build-season costs cover parts and tooling for design and fabrication. Competition costs covers
-            registration, shipping the car, and lodging.
+            Build-season costs cover the frame, suspension hardware, driver safety gear, and electronics. Equipment
+            covers longer-lived items like the motor controller, wheel scales, and suspension components. Competition
+            costs cover registration, travel, lodging, and food.
           </p>
         </div>
       </section>
