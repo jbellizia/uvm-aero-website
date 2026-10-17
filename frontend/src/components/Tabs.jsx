@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-export default function Tabs({ tabs, panels, className = '' }) {
+// By default the container shrinks to the active panel. Pass keepHeight to hold the tallest panel's height
+// so surrounding layout doesn't shift when switching tabs.
+export default function Tabs({ tabs, panels, className = '', keepHeight = false }) {
   const [active, setActive] = useState(tabs[0].key);
 
   return (
@@ -23,7 +25,9 @@ export default function Tabs({ tabs, panels, className = '' }) {
           <div
             key={panel.key}
             className={`[grid-area:1/1] transition-opacity duration-150 ${
-              active === panel.key ? '' : 'h-0 overflow-hidden opacity-0 pointer-events-none'
+              active === panel.key
+                ? ''
+                : `${keepHeight ? '' : 'h-0 overflow-hidden '}opacity-0 pointer-events-none`
             }`}
           >
             {panel.content}
