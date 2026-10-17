@@ -23,7 +23,7 @@ export default function Tabs({ tabs, panels, className = '' }) {
           <div
             key={panel.key}
             className={`[grid-area:1/1] transition-opacity duration-150 ${
-              active === panel.key ? '' : 'opacity-0 pointer-events-none'
+              active === panel.key ? '' : 'h-0 overflow-hidden opacity-0 pointer-events-none'
             }`}
           >
             {panel.content}
