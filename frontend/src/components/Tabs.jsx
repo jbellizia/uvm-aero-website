@@ -7,12 +7,16 @@ export default function Tabs({ tabs, panels, className = '', keepHeight = false 
 
   return (
     <>
-      <div className={`flex gap-0 mb-8 border border-border ${className}`} style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
+      {/* Scrolls sideways instead of squashing labels when there are more tabs than fit. */}
+      <div
+        className={`flex gap-0 mb-8 border border-border overflow-x-auto ${className}`}
+        style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}
+      >
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActive(tab.key)}
-            className={`flex-1 py-2.5 uppercase font-bold transition-colors ${
+            className={`flex-1 shrink-0 px-4 py-2.5 whitespace-nowrap uppercase font-bold transition-colors ${
               active === tab.key ? 'bg-accent text-black' : 'text-muted hover:text-foreground'
             }`}
           >
