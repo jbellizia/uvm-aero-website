@@ -2,8 +2,11 @@ import { useState } from 'react';
 
 // By default the container shrinks to the active panel. Pass keepHeight to hold the tallest panel's height
 // so surrounding layout doesn't shift when switching tabs.
-export default function Tabs({ tabs, panels, className = '', keepHeight = false }) {
-  const [active, setActive] = useState(tabs[0].key);
+// Pass active and onChange to control the selected tab from the parent.
+export default function Tabs({ tabs, panels, className = '', keepHeight = false, active: controlled, onChange }) {
+  const [internal, setInternal] = useState(tabs[0].key);
+  const active = controlled ?? internal;
+  const setActive = onChange ?? setInternal;
 
   return (
     <>

@@ -2,6 +2,7 @@
   "_comment": "Items with value null are hidden on the site until a number is filled in. Totals are summed from the items shown. Tabs mirror the funding requests they came from.",
   "beatty": {
     "_comment": "Beatty Funds request, $19,800 total. Competition tab is the competition portion; this tab is the rest.",
+    "description": "Build-season costs cover the frame, suspension hardware, driver safety gear, and electronics.",
     "items": [
       { "label": "FRAME MATERIALS", "value": 2000 },
       { "label": "FRAME LABOR (WELDING, CUTTING, BENDING)", "value": 1500 },
@@ -19,6 +20,7 @@
   },
   "equipment": {
     "_comment": "Supplemental funding request, long-term equipment, $9,572.78 total. Motor and battery are expected but not yet priced.",
+    "description": "Equipment covers longer-lived items like the motor controller, wheel scales, and suspension components.",
     "items": [
       { "label": "MOTOR CONTROLLER", "value": 5077.12, "_comment": "Estimate converted from a Euro invoice; exchange rate may move." },
       { "label": "MOTOR", "value": null },
@@ -31,6 +33,7 @@
   },
   "competition": {
     "_comment": "Beatty Funds request, competition portion, $9,500 total. Lodging assumes about 16 people.",
+    "description": "Competition costs cover registration, travel, lodging, and food.",
     "items": [
       { "label": "REGISTRATION", "value": 3100 },
       { "label": "VEHICLE SHIPPING / TOWING", "value": null },

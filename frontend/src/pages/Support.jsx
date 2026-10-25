@@ -32,6 +32,7 @@ export default function Support() {
   const [donationData, setDonationData] = useState(null);
   const [budget, setBudget] = useState(null);
   const [site, setSite] = useState(null);
+  const [budgetTab, setBudgetTab] = useState('build');
 
   useEffect(() => {
     fetch('/api/donations')
@@ -53,28 +54,26 @@ export default function Support() {
   const goal = donationData?.goal ?? 0;
   const pct = goal ? Math.min(100, Math.round((total / goal) * 100)) : 0;
 
+  // section is the key in budget.json that each tab reads from.
   const budgetTabs = [
-    { key: 'build', label: 'Build Season' },
-    { key: 'equipment', label: 'Equipment' },
-    { key: 'comp', label: 'Competition' },
+    { key: 'build', label: 'Build Season', section: 'beatty' },
+    { key: 'equipment', label: 'Equipment', section: 'equipment' },
+    { key: 'comp', label: 'Competition', section: 'competition' },
   ];
 
   const budgetPanels = budget
-    ? [
-        { key: 'build', content: <BudgetTable items={budget.beatty.items} /> },
-        { key: 'equipment', content: <BudgetTable items={budget.equipment.items} /> },
-        { key: 'comp', content: <BudgetTable items={budget.competition.items} /> },
-      ]
+    ? budgetTabs.map((tab) => ({ key: tab.key, content: <BudgetTable items={budget[tab.section].items} /> }))
     : [];
+  const activeSection = budgetTabs.find((tab) => tab.key === budgetTab).section;
 
   return (
     <div className="pt-[65px]">
-      <section className="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-start">
+      <section className="bg-background text-foreground py-24 px-6 border-b-4 border-accent">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-5">
             <h2
-              className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', letterSpacing: '-0.02em' }}
+              className="font-black uppercase leading-none text-foreground font-display"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
             >
               EVERY
               <br />
@@ -83,65 +82,67 @@ export default function Support() {
               COUNTS.
             </h2>
           </div>
-          <div className="md:col-span-7 space-y-6 pt-0 md:pt-16">
-            <p className="text-background/80 leading-relaxed text-lg">
+          <div className="md:col-span-7 space-y-6">
+            <p className="text-foreground/80 leading-relaxed text-lg">
               Your support directly funds the motor and motor controller, battery pack and BMS, chassis materials,
               and the trip to compete at Formula Hybrid+Electric.
             </p>
-            <p className="text-background/60 leading-relaxed">AERO is a UVM student club, not a separate nonprofit.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-background/20 mt-8">
-              <div className="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
-                <div className="font-black text-background font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
+            <p className="text-foreground/60 leading-relaxed">AERO is a UVM student club, not a separate nonprofit.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-foreground/20 mt-8">
+              <div className="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-foreground/20">
+                <div className="font-black text-foreground font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
                   {donationData ? formatMoney(total) : '—'}
                 </div>
-                <div className="text-background/50 text-xs tracking-widest mt-1">RAISED</div>
+                <div className="text-foreground/50 text-xs tracking-widest mt-1">RAISED</div>
               </div>
-              <div className="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-background/20">
-                <div className="font-black text-background font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
+              <div className="py-6 px-4 text-center border-b sm:border-b-0 sm:border-r border-foreground/20">
+                <div className="font-black text-foreground font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
                   {donationData ? formatMoney(goal) : '—'}
                 </div>
-                <div className="text-background/50 text-xs tracking-widest mt-1">GOAL</div>
+                <div className="text-foreground/50 text-xs tracking-widest mt-1">GOAL</div>
               </div>
               <div className="py-6 px-4 text-center">
-                <div className="font-black text-background font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
+                <div className="font-black text-foreground font-display" style={{ fontSize: '1.5rem', lineHeight: 1.3 }}>
                   {donationData ? cash.length : '—'}
                 </div>
-                <div className="text-background/50 text-xs tracking-widest mt-1">DONORS</div>
+                <div className="text-foreground/50 text-xs tracking-widest mt-1">DONORS</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="budget" className="bg-background py-24 px-6 border-b border-border">
+      <section id="budget" className="section-light py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
             <h2
               className="font-black uppercase leading-none font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
             >
               WHERE IT GOES
             </h2>
           </div>
 
           <div className="grid md:grid-cols-12 gap-12 items-start">
-            <div className="md:col-span-7">{budget && <Tabs tabs={budgetTabs} panels={budgetPanels} />}</div>
+            <div className="md:col-span-7">
+              {budget && (
+                <Tabs tabs={budgetTabs} panels={budgetPanels} active={budgetTab} onChange={setBudgetTab} />
+              )}
+            </div>
 
             <p className="md:col-span-5 text-muted leading-relaxed text-sm border-t border-border pt-8 md:border-t-0 md:pt-0 md:border-l md:pl-8">
-              Build-season costs cover the frame, suspension hardware, driver safety gear, and electronics. Equipment
-              covers longer-lived items like the motor controller, wheel scales, and suspension components. Competition
-              costs cover registration, travel, lodging, and food.
+              {budget?.[activeSection].description}
             </p>
           </div>
         </div>
       </section>
 
-      <section id="donate" className="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
+      <section id="donate" className="bg-background text-foreground py-24 px-6 border-b-4 border-accent">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-12 border-b border-background/20 pb-6">
+          <div className="flex items-end justify-between mb-12 border-b border-foreground/20 pb-6">
             <h2
-              className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
+              className="font-black uppercase leading-none text-foreground font-display"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
             >
               GIVE
             </h2>
@@ -149,19 +150,19 @@ export default function Support() {
 
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <div className="space-y-4" style={{ fontSize: '0.8rem' }}>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
-                <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
+              <div className="flex gap-8 items-baseline border-b border-foreground/20 pb-4">
+                <span className="text-foreground/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   ONLINE
                 </span>
-                <a href={GIVE_URL} className="text-background hover:text-accent transition-colors">
+                <a href={GIVE_URL} className="text-foreground hover:text-accent transition-colors">
                   Give via UVM Foundation &rarr;
                 </a>
               </div>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
-                <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
+              <div className="flex gap-8 items-baseline border-b border-foreground/20 pb-4">
+                <span className="text-foreground/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   BY CHECK
                 </span>
-                <span className="text-background leading-relaxed">
+                <span className="text-foreground leading-relaxed">
                   {site && (
                     <>
                       Payable to "{site.checkPayableTo}"
@@ -173,20 +174,20 @@ export default function Support() {
                   )}
                 </span>
               </div>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
-                <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
+              <div className="flex gap-8 items-baseline border-b border-foreground/20 pb-4">
+                <span className="text-foreground/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   SPONSORSHIP
                 </span>
-                <Link to="/sponsors" className="text-background hover:text-accent transition-colors">
+                <Link to="/sponsors" className="text-foreground hover:text-accent transition-colors">
                   View sponsors &rarr;
                 </Link>
               </div>
               <div className="flex gap-8 items-baseline pb-4">
-                <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
+                <span className="text-foreground/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   QUESTIONS
                 </span>
                 {site && (
-                  <a href={`mailto:${site.questionsEmail}`} className="text-background hover:text-accent transition-colors">
+                  <a href={`mailto:${site.questionsEmail}`} className="text-foreground hover:text-accent transition-colors">
                     {site.questionsEmail}
                   </a>
                 )}
@@ -197,20 +198,20 @@ export default function Support() {
               <p className="text-accent mb-1" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>
                 2026&ndash;27 ADVANCEMENT FUND
               </p>
-              <div className="text-background font-semibold text-lg mb-4">
+              <div className="text-foreground font-semibold text-lg mb-4">
                 {donationData ? `${formatMoney(total)} of ${formatMoney(goal)} raised` : '—'}
               </div>
-              <div className="w-full h-2 bg-background/10 border border-background/20 overflow-hidden mb-8">
+              <div className="w-full h-2 bg-foreground/10 border border-foreground/20 overflow-hidden mb-8">
                 <div className="progress-fill h-full bg-accent" style={{ width: `${pct}%` }} />
               </div>
 
-              <ul className="divide-y divide-background/20" style={{ fontSize: '0.78rem' }}>
+              <ul className="divide-y divide-foreground/20" style={{ fontSize: '0.78rem' }}>
                 {donationData &&
                   donationData.donations.map((d, i) => (
                     <li key={i} className="py-3 flex justify-between items-baseline gap-4">
-                      <span className="text-background truncate">
+                      <span className="text-foreground truncate">
                         {d.donor}
-                        {d.memo && <span className="text-background/60"> &middot; {d.memo}</span>}
+                        {d.memo && <span className="text-foreground/60"> &middot; {d.memo}</span>}
                       </span>
                       <span className="text-accent font-bold shrink-0">{formatMoney(d.amount)}</span>
                     </li>
@@ -219,7 +220,7 @@ export default function Support() {
 
               <a
                 href={GIVE_URL}
-                className="mt-8 block text-center px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-background hover:text-foreground transition-colors duration-150"
+                className="mt-8 block text-center px-8 py-3 bg-accent text-black font-bold text-sm uppercase tracking-widest hover:bg-foreground hover:text-background transition-colors duration-150"
               >
                 DONATE NOW
               </a>
