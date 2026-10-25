@@ -11,7 +11,8 @@ const CONTACT_LINKS = [
   },
 ];
 
-const initialForm = { name: '', email: '', org: '', message: '' };
+// `website` is a honeypot: hidden from people, so only bots fill it in.
+const initialForm = { name: '', email: '', org: '', message: '', website: '' };
 
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
@@ -66,6 +67,17 @@ export default function Contact() {
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
+            <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={handleChange('website')}
+              />
+            </div>
             <div>
               <label htmlFor="name" className="block text-background/50 mb-1" style={{ fontSize: '0.62rem', letterSpacing: '0.18em' }}>
                 YOUR NAME

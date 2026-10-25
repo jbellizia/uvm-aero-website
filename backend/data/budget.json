@@ -1,22 +1,42 @@
 {
-  "build": {
+  "_comment": "Items with value null are hidden on the site until a number is filled in. Totals are summed from the items shown. Tabs mirror the funding requests they came from.",
+  "beatty": {
+    "_comment": "Beatty Funds request, $19,800 total. Competition tab is the competition portion; this tab is the rest.",
     "items": [
-      { "label": "MOTOR / MOTOR CONTROLLER", "value": "—" },
-      { "label": "HV WIRING & FUSING", "value": "—" },
-      { "label": "BATTERY CELLS & BMS", "value": "—" },
-      { "label": "CHASSIS MATERIALS", "value": "—" },
-      { "label": "TOOLS & CONSUMABLES", "value": "—" }
-    ],
-    "total": "—"
+      { "label": "FRAME MATERIALS", "value": 2000 },
+      { "label": "FRAME LABOR (WELDING, CUTTING, BENDING)", "value": 1500 },
+      { "label": "SUSPENSION MOUNTING HARDWARE", "value": 1500 },
+      { "label": "HELMETS", "value": 600 },
+      { "label": "DRIVER HARNESS", "value": 500, "_comment": "TODO ask: possible double-count with the $329.99 racing harness in equipment." },
+      { "label": "WRIST RESTRAINT", "value": 100 },
+      { "label": "DRIVER SUITS", "value": 600 },
+      { "label": "DRIVER SHOES", "value": 300 },
+      { "label": "UNDERGARMENTS", "value": 200 },
+      { "label": "CIRCUIT BOARDS", "value": 1500 },
+      { "label": "DC/DC CONVERTER", "value": 500 },
+      { "label": "MISC. ELECTRICAL", "value": 1000 }
+    ]
+  },
+  "equipment": {
+    "_comment": "Supplemental funding request, long-term equipment, $9,572.78 total. Motor and battery are expected but not yet priced.",
+    "items": [
+      { "label": "MOTOR CONTROLLER", "value": 5077.12, "_comment": "Estimate converted from a Euro invoice; exchange rate may move." },
+      { "label": "MOTOR", "value": null },
+      { "label": "BATTERY CELLS & BMS", "value": null },
+      { "label": "WHEEL SCALES (SET OF 4)", "value": 1058.99 },
+      { "label": "RACING HARNESS", "value": 329.99, "_comment": "TODO ask: possible double-count with the $500 driver harness in the Beatty request." },
+      { "label": "PPE", "value": 586.8, "_comment": "TODO ask: email says HV tools and reinspection are included, but gloves (3 x $168.80) + eyewear (20 x $4.02) already equal $586.80. Total given was trusted." },
+      { "label": "SUSPENSION COMPONENTS", "value": 2519.88 }
+    ]
   },
   "competition": {
+    "_comment": "Beatty Funds request, competition portion, $9,500 total. Lodging assumes about 16 people.",
     "items": [
-      { "label": "REGISTRATION", "value": "—" },
-      { "label": "VEHICLE SHIPPING / TOWING", "value": "—" },
-      { "label": "TRAVEL", "value": "—" },
-      { "label": "LODGING", "value": "—" },
-      { "label": "MEALS", "value": "—" }
-    ],
-    "total": "—"
+      { "label": "REGISTRATION", "value": 3100 },
+      { "label": "VEHICLE SHIPPING / TOWING", "value": null },
+      { "label": "TRAVEL", "value": 900 },
+      { "label": "LODGING", "value": 5000 },
+      { "label": "MEALS", "value": 500 }
+    ]
   }
 }

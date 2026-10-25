@@ -9,9 +9,29 @@ function formatMoney(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
 
+// Values are numbers, or null when not yet known. Unknown items are hidden and the total sums the known ones.
+function BudgetTable({ items }) {
+  const known = items.filter((item) => typeof item.value === 'number');
+  const rows = known.map((item) => ({ label: item.label, value: formatMoney(item.value) }));
+  // Sum the rounded values so the total matches the rows as displayed.
+  const total = known.reduce((sum, item) => sum + Math.round(item.value), 0);
+  return (
+    <>
+      <SpecTable rows={rows} labelSize="0.68rem" />
+      <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
+        <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
+          TOTAL
+        </span>
+        <span className="text-accent text-sm font-bold text-right">{formatMoney(total)}</span>
+      </div>
+    </>
+  );
+}
+
 export default function Support() {
   const [donationData, setDonationData] = useState(null);
   const [budget, setBudget] = useState(null);
+  const [site, setSite] = useState(null);
 
   useEffect(() => {
     fetch('/api/donations')
@@ -22,6 +42,10 @@ export default function Support() {
       .then((res) => res.json())
       .then(setBudget)
       .catch(() => setBudget(null));
+    fetch('/api/site')
+      .then((res) => res.json())
+      .then(setSite)
+      .catch(() => setSite(null));
   }, []);
 
   const cash = donationData ? donationData.donations.filter((d) => d.method !== 'in-kind') : [];
@@ -31,39 +55,15 @@ export default function Support() {
 
   const budgetTabs = [
     { key: 'build', label: 'Build Season' },
+    { key: 'equipment', label: 'Equipment' },
     { key: 'comp', label: 'Competition' },
   ];
 
   const budgetPanels = budget
     ? [
-        {
-          key: 'build',
-          content: (
-            <>
-              <SpecTable rows={budget.build.items} labelSize="0.68rem" />
-              <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
-                <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
-                  TOTAL
-                </span>
-                <span className="text-accent text-sm font-bold text-right">{budget.build.total}</span>
-              </div>
-            </>
-          ),
-        },
-        {
-          key: 'comp',
-          content: (
-            <>
-              <SpecTable rows={budget.competition.items} labelSize="0.68rem" />
-              <div className="flex justify-between items-baseline py-4 gap-4 border-t-2 border-accent mt-1">
-                <span className="text-foreground font-bold shrink-0" style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}>
-                  TOTAL
-                </span>
-                <span className="text-accent text-sm font-bold text-right">{budget.competition.total}</span>
-              </div>
-            </>
-          ),
-        },
+        { key: 'build', content: <BudgetTable items={budget.beatty.items} /> },
+        { key: 'equipment', content: <BudgetTable items={budget.equipment.items} /> },
+        { key: 'comp', content: <BudgetTable items={budget.competition.items} /> },
       ]
     : [];
 
@@ -128,8 +128,9 @@ export default function Support() {
             <div className="md:col-span-7">{budget && <Tabs tabs={budgetTabs} panels={budgetPanels} />}</div>
 
             <p className="md:col-span-5 text-muted leading-relaxed text-sm border-t border-border pt-8 md:border-t-0 md:pt-0 md:border-l md:pl-8">
-              Build-season costs cover parts and tooling for design and fabrication. Competition costs covers
-              registration, shipping the car, and lodging.
+              Build-season costs cover the frame, suspension hardware, driver safety gear, and electronics. Equipment
+              covers longer-lived items like the motor controller, wheel scales, and suspension components. Competition
+              costs cover registration, travel, lodging, and food.
             </p>
           </div>
         </div>
@@ -161,9 +162,15 @@ export default function Support() {
                   BY CHECK
                 </span>
                 <span className="text-background leading-relaxed">
-                  Payable to "UVM Foundation / AERO Fund"
-                  <br />
-                  [address] &middot; Burlington, VT
+                  {site && (
+                    <>
+                      Payable to "{site.checkPayableTo}"
+                      <br />
+                      Memo: "{site.checkMemo}"
+                      <br />
+                      {site.checkAddress}
+                    </>
+                  )}
                 </span>
               </div>
               <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
@@ -171,16 +178,18 @@ export default function Support() {
                   SPONSORSHIP
                 </span>
                 <Link to="/sponsors" className="text-background hover:text-accent transition-colors">
-                  See partner tiers &rarr;
+                  View sponsors &rarr;
                 </Link>
               </div>
               <div className="flex gap-8 items-baseline pb-4">
                 <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   QUESTIONS
                 </span>
-                <a href="mailto:aero@uvm.edu" className="text-background hover:text-accent transition-colors">
-                  aero@uvm.edu
-                </a>
+                {site && (
+                  <a href={`mailto:${site.questionsEmail}`} className="text-background hover:text-accent transition-colors">
+                    {site.questionsEmail}
+                  </a>
+                )}
               </div>
             </div>
 

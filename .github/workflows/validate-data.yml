@@ -1,0 +1,24 @@
+name: Validate data
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'backend/data/**'
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check backend/data/*.json is valid JSON
+        run: |
+          status=0
+          for f in backend/data/*.json; do
+            if ! python3 -m json.tool "$f" > /dev/null; then
+              echo "::error file=$f::Invalid JSON"
+              status=1
+            fi
+          done
+          exit $status
