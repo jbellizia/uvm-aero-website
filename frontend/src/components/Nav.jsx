@@ -76,9 +76,8 @@ export default function Nav() {
             <a
               href={donateHref}
               onClick={() => setOpen(false)}
-              className={`text-5xl [@media(max-height:500px)]:text-3xl font-black uppercase transition-colors ${
-                onSupport ? 'text-accent' : 'text-accent hover:text-foreground'
-              }`}
+              // A filled button like the desktop one, so it doesn't read as the active page's green text.
+              className="mt-2 px-4 py-2 text-5xl [@media(max-height:500px)]:text-3xl font-black uppercase bg-accent text-foreground hover:bg-foreground hover:text-background transition-colors"
             >
               Donate
             </a>
