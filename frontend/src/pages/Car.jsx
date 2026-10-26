@@ -44,12 +44,12 @@ export default function Car() {
           <div className="relative p-8 md:p-12 flex flex-col justify-between">
             <div className="hidden md:block absolute left-0 top-8 bottom-8 w-px bg-border" />
             <div>
-              <h2
+              <h1
                 className="font-black uppercase leading-none mb-8 font-display"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
               >
                 THE MACHINE
-              </h2>
+              </h1>
 
               {specs && <Tabs tabs={tabs} panels={panels} keepHeight />}
             </div>

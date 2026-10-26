@@ -42,14 +42,14 @@ export default function Contact() {
       <section className="bg-foreground text-background py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
           <div>
-            <h2
+            <h1
               className="font-black uppercase leading-none text-background mb-8 font-display"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
             >
               LET'S
               <br />
               TALK.
-            </h2>
+            </h1>
             <div className="space-y-4" style={{ fontSize: '0.75rem' }}>
               {CONTACT_LINKS.map((link) => (
                 <div key={link.label} className="flex gap-8 items-baseline border-b border-background/15 pb-4">

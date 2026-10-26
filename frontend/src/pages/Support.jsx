@@ -71,7 +71,7 @@ export default function Support() {
       <section className="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
         <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-5">
-            <h2
+            <h1
               className="font-black uppercase leading-none text-background font-display"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
             >
@@ -80,7 +80,7 @@ export default function Support() {
               DONATION
               <br />
               COUNTS.
-            </h2>
+            </h1>
           </div>
           <div className="md:col-span-7 space-y-6">
             <p className="text-background/80 leading-relaxed text-lg">
