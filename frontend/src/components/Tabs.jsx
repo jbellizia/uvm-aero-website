@@ -22,13 +22,15 @@ export default function Tabs({ tabs, panels, className = '', keepHeight = false,
           <button
             key={tab.key}
             onClick={() => setActive(tab.key)}
+            title={wrap ? String(tab.label) : undefined}
             className={`px-4 py-2.5 uppercase font-bold transition-colors ${
-              wrap ? 'border-r border-b border-border' : 'flex-1 shrink-0 whitespace-nowrap'
+              // Fixed height fits two lines, so rows don't grow to their longest label.
+              wrap ? 'h-14 flex items-center justify-center border-r border-b border-border' : 'flex-1 shrink-0 whitespace-nowrap'
             } ${
               active === tab.key ? 'bg-accent text-black' : 'text-muted hover:text-foreground'
             }`}
           >
-            {tab.label}
+            <span className={wrap ? 'line-clamp-2 leading-snug' : undefined}>{tab.label}</span>
           </button>
         ))}
       </div>
