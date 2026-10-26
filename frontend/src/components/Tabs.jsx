@@ -4,6 +4,7 @@ import { useState } from 'react';
 // so surrounding layout doesn't shift when switching tabs.
 // Pass active and onChange to control the selected tab from the parent.
 // Pass wrap to lay many tabs out as a grid of rows instead of one sideways-scrolling row.
+// Without wrap, labels may break onto two lines on phones so a few tabs fit without scrolling.
 export default function Tabs({ tabs, panels, className = '', keepHeight = false, wrap = false, active: controlled, onChange }) {
   const [internal, setInternal] = useState(tabs[0].key);
   const active = controlled ?? internal;
@@ -25,7 +26,7 @@ export default function Tabs({ tabs, panels, className = '', keepHeight = false,
             title={wrap ? String(tab.label) : undefined}
             className={`px-4 py-2.5 uppercase font-bold transition-colors ${
               // Fixed height fits two lines, so rows don't grow to their longest label.
-              wrap ? 'h-14 flex items-center justify-center border-r border-b border-border' : 'flex-1 shrink-0 whitespace-nowrap'
+              wrap ? 'h-14 flex items-center justify-center border-r border-b border-border' : 'flex-1 max-md:px-2 max-md:py-3 md:shrink-0 md:whitespace-nowrap'
             } ${
               active === tab.key ? 'bg-accent text-black' : 'text-muted hover:text-foreground'
             }`}

@@ -15,7 +15,7 @@ export default function Footer() {
         </span>
         <div className="flex gap-6" style={{ fontSize: '0.62rem', letterSpacing: '0.12em' }}>
           {SOCIAL_LINKS.map((link) => (
-            <a key={link.label} href={link.href} className="text-muted hover:text-foreground transition-colors">
+            <a key={link.label} href={link.href} className="-m-3 p-3 md:m-0 md:p-0 text-muted hover:text-foreground transition-colors">
               {link.label}
             </a>
           ))}

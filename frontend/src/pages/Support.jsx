@@ -68,19 +68,19 @@ export default function Support() {
 
   return (
     <div className="pt-[65px]">
-      <section className="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
+      <section className="bg-foreground text-background py-16 md:py-24 px-6 border-b-4 border-accent">
         <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-5">
-            <h2
+            <h1
               className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               EVERY
               <br />
               DONATION
               <br />
               COUNTS.
-            </h2>
+            </h1>
           </div>
           <div className="md:col-span-7 space-y-6">
             <p className="text-background/80 leading-relaxed text-lg">
@@ -112,18 +112,18 @@ export default function Support() {
         </div>
       </section>
 
-      <section id="budget" className="bg-background py-24 px-6 border-b border-border">
+      <section id="budget" className="bg-background py-16 md:py-24 px-6 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
             <h2
               className="font-black uppercase leading-none font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               WHERE IT GOES
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-12 gap-12 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
             <div className="md:col-span-7">
               {budget && (
                 <Tabs tabs={budgetTabs} panels={budgetPanels} active={budgetTab} onChange={setBudgetTab} />
@@ -137,20 +137,20 @@ export default function Support() {
         </div>
       </section>
 
-      <section id="donate" className="bg-foreground text-background py-24 px-6 border-b-4 border-accent">
+      <section id="donate" className="bg-foreground text-background py-16 md:py-24 px-6 border-b-4 border-accent">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-background/20 pb-6">
             <h2
               className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               GIVE
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-16 items-start">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
             <div className="space-y-4" style={{ fontSize: '0.8rem' }}>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
+              <div className="flex gap-4 md:gap-8 items-baseline border-b border-background/20 pb-4">
                 <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   ONLINE
                 </span>
@@ -158,7 +158,7 @@ export default function Support() {
                   Give via UVM Foundation &rarr;
                 </a>
               </div>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
+              <div className="flex gap-4 md:gap-8 items-baseline border-b border-background/20 pb-4">
                 <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   BY CHECK
                 </span>
@@ -174,7 +174,7 @@ export default function Support() {
                   )}
                 </span>
               </div>
-              <div className="flex gap-8 items-baseline border-b border-background/20 pb-4">
+              <div className="flex gap-4 md:gap-8 items-baseline border-b border-background/20 pb-4">
                 <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   SPONSORSHIP
                 </span>
@@ -182,7 +182,7 @@ export default function Support() {
                   View sponsors &rarr;
                 </Link>
               </div>
-              <div className="flex gap-8 items-baseline pb-4">
+              <div className="flex gap-4 md:gap-8 items-baseline pb-4">
                 <span className="text-background/60 w-28 shrink-0 tracking-widest" style={{ fontSize: '0.68rem' }}>
                   QUESTIONS
                 </span>

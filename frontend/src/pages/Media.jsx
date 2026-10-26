@@ -92,15 +92,15 @@ export default function Media() {
 
   return (
     <div className="pt-[65px]">
-      <section className="bg-background py-24 px-6 border-b border-border">
+      <section className="bg-background py-16 md:py-24 px-6 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
-            <h2
+            <h1
               className="font-black uppercase leading-none font-display"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               MEDIA
-            </h2>
+            </h1>
           </div>
 
           {body}
