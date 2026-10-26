@@ -117,7 +117,7 @@ export default function Support() {
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
             <h2
               className="font-black uppercase leading-none font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               WHERE IT GOES
             </h2>
@@ -142,7 +142,7 @@ export default function Support() {
           <div className="flex items-end justify-between mb-12 border-b border-background/20 pb-6">
             <h2
               className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               GIVE
             </h2>
