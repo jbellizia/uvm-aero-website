@@ -44,7 +44,7 @@ export default function Contact() {
           <div>
             <h1
               className="font-black uppercase leading-none text-background mb-8 font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               LET'S
               <br />

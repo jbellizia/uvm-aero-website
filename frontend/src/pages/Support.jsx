@@ -73,7 +73,7 @@ export default function Support() {
           <div className="md:col-span-5">
             <h1
               className="font-black uppercase leading-none text-background font-display"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.02em' }}
             >
               EVERY
               <br />
