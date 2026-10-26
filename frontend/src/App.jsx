@@ -4,6 +4,7 @@ import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Car from './pages/Car.jsx';
 import Team from './pages/Team.jsx';
+import Media from './pages/Media.jsx';
 import Sponsors from './pages/Sponsors.jsx';
 import Contact from './pages/Contact.jsx';
 import Support from './pages/Support.jsx';
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/car" element={<Car />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/media" element={<Media />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/support" element={<Support />} />

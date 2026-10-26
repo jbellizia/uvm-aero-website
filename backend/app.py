@@ -87,6 +87,58 @@ def site():
     return jsonify(load_json("site.json"))
 
 
+# Optimized photos synced from Drive by .github/workflows/sync-media.yml, laid out as
+# <year>/thumb/<slug>.jpg and <year>/full/<slug>.jpg. Unset in local dev by default.
+MEDIA_DIR = os.environ.get("MEDIA_DIR")
+MEDIA_YEAR_RE = re.compile(r"^\d{4}(-\d{2})?$")
+# Phone/camera default names (IMG_1234, DSC_0042, PXL_20240101_...) make poor captions.
+CAMERA_NAME_RE = re.compile(r"^((img|dsc[nf]?|pxl|mvimg|gopr|dji)-?\d|[\d-]+$)")
+
+
+def media_alt(slug, year, n):
+    if CAMERA_NAME_RE.match(slug):
+        return f"UVM AERO {year} photo {n}"
+    return slug.replace("-", " ").capitalize()
+
+
+@app.get("/api/media")
+def media():
+    root = Path(MEDIA_DIR) if MEDIA_DIR else None
+    if not root or not root.is_dir():
+        return jsonify([])
+
+    years = []
+    for year_dir in sorted(root.iterdir(), key=lambda p: p.name, reverse=True):
+        if not (year_dir.is_dir() and MEDIA_YEAR_RE.match(year_dir.name)):
+            continue
+        thumb_dir, full_dir = year_dir / "thumb", year_dir / "full"
+        if not thumb_dir.is_dir():
+            continue
+        year = year_dir.name
+        names = sorted(
+            p.name for p in thumb_dir.glob("*.jpg") if (full_dir / p.name).is_file()
+        )
+        photos = [
+            {
+                "thumb": f"/media/{year}/thumb/{name}",
+                "full": f"/media/{year}/full/{name}",
+                "alt": media_alt(Path(name).stem, year, i),
+            }
+            for i, name in enumerate(names, start=1)
+        ]
+        if photos:
+            years.append({"year": year, "photos": photos})
+    return jsonify(years)
+
+
+@app.get("/media/<path:path>")
+def media_file(path):
+    if not MEDIA_DIR:
+        return Response("Not found", 404)
+    # send_from_directory rejects paths that resolve outside MEDIA_DIR.
+    return send_from_directory(MEDIA_DIR, path)
+
+
 CONTACT_MAX_LENGTHS = {"name": 200, "email": 254, "org": 200, "message": 5000}
 # Simple shape check; also rejects CR/LF, which would break the email headers.
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
