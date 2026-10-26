@@ -8,6 +8,11 @@ Static site for UVM AERO (Alternative Energy Racing Organization), hosted with G
 - `static/` — images
 - Styled with [Tailwind CSS](https://tailwindcss.com/) via CDN
 
+## Media page photos
+
+Photos on `/media` come from Google Drive, not git. See [docs/media.md](docs/media.md)
+for how to add photos each season and how the sync is set up.
+
 ## Local preview
 
 ```

@@ -1,0 +1,78 @@
+name: Sync media
+
+# Mirrors the "AERO Media" Google Drive folder to Silk as web-sized JPEGs.
+# See docs/media.md for how to add photos and how this is set up.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+
+concurrency:
+  group: sync-media
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SSH_HOST: silk.uvm.edu
+      SSH_USER: aero
+      MEDIA_ROOT: /users/a/e/aero/media
+      # rclone reads its "gdrive" remote from these instead of a config file.
+      RCLONE_CONFIG_GDRIVE_TYPE: drive
+      RCLONE_CONFIG_GDRIVE_SCOPE: drive.readonly
+      RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+      RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ vars.GDRIVE_MEDIA_FOLDER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements-media.txt
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q rclone
+          pip install -q -r scripts/requirements-media.txt
+
+      # Originals and already-encoded outputs from the last run, so only new or
+      # changed photos are downloaded and re-encoded. A cache miss is a full rebuild.
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .media/originals
+            .media/encoded
+          key: media-${{ github.run_id }}
+          restore-keys: media-
+
+      - name: Download originals from Drive
+        run: |
+          rclone sync gdrive: .media/originals --drive-skip-gdocs --stats-one-line -v
+
+      - name: Optimize photos
+        run: python scripts/optimize_media.py .media/originals .media/out --cache .media/encoded
+
+      - name: Set up deploy key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      # Exact mirror: photos removed from Drive are removed from the site.
+      - name: Upload to Silk
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes "$SSH_USER@$SSH_HOST" \
+            "mkdir -p '$MEDIA_ROOT'"
+          rsync -rz --checksum --delete --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            .media/out/ "$SSH_USER@$SSH_HOST:$MEDIA_ROOT/"
+
+      - name: Clean up deploy key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
