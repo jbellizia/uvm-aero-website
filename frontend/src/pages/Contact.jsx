@@ -39,8 +39,8 @@ export default function Contact() {
 
   return (
     <div className="pt-[65px] bg-foreground">
-      <section className="bg-foreground text-background py-24 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+      <section className="bg-foreground text-background py-16 md:py-24 px-6">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start">
           <div>
             <h1
               className="font-black uppercase leading-none text-background mb-8 font-display"
@@ -52,14 +52,14 @@ export default function Contact() {
             </h1>
             <div className="space-y-4" style={{ fontSize: '0.75rem' }}>
               {CONTACT_LINKS.map((link) => (
-                <div key={link.label} className="flex gap-8 items-baseline border-b border-background/15 pb-4">
+                <div key={link.label} className="flex gap-4 md:gap-8 items-baseline border-b border-background/15 pb-4">
                   <span className="text-background/40 w-24 shrink-0 tracking-widest">{link.label}</span>
                   <a href={link.href} className="text-background hover:text-accent transition-colors">
                     {link.text}
                   </a>
                 </div>
               ))}
-              <div className="flex gap-8 items-baseline border-b border-background/15 pb-4">
+              <div className="flex gap-4 md:gap-8 items-baseline border-b border-background/15 pb-4">
                 <span className="text-background/40 w-24 shrink-0 tracking-widest">LOCATION</span>
                 <span className="text-background">Votey Hall, Room 118 — University of Vermont, Burlington VT</span>
               </div>
@@ -88,7 +88,7 @@ export default function Contact() {
                 required
                 value={form.name}
                 onChange={handleChange('name')}
-                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm"
+                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-base md:text-sm"
                 placeholder="Enter your name"
               />
             </div>
@@ -102,7 +102,7 @@ export default function Contact() {
                 required
                 value={form.email}
                 onChange={handleChange('email')}
-                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm"
+                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-base md:text-sm"
                 placeholder="Enter email address"
               />
             </div>
@@ -115,7 +115,7 @@ export default function Contact() {
                 type="text"
                 value={form.org}
                 onChange={handleChange('org')}
-                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm"
+                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-base md:text-sm"
                 placeholder="Enter organization / company"
               />
             </div>
@@ -129,7 +129,7 @@ export default function Contact() {
                 required
                 value={form.message}
                 onChange={handleChange('message')}
-                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-sm resize-none"
+                className="w-full bg-transparent border border-background/20 px-4 py-3 text-background placeholder-background/30 focus:outline-none focus:border-accent transition-colors text-base md:text-sm resize-none"
                 placeholder="Tell us about your interest..."
               />
             </div>
