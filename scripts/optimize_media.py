@@ -2,8 +2,9 @@
 
     python scripts/optimize_media.py SRC OUT [--cache DIR]
 
-SRC holds one folder per year (`2024` or `2024-25`) of original photos. OUT must be
-empty or missing; it receives `<year>/thumb/<slug>.jpg` and `<year>/full/<slug>.jpg`.
+SRC holds one folder per tab (usually a year, `2024` or `2024-25`) of original photos;
+folders starting with `_` are skipped. OUT must be empty or missing; it receives
+`<year>/thumb/<slug>.jpg` and `<year>/full/<slug>.jpg`.
 Images are auto-rotated from EXIF, written as JPEG, and saved without any EXIF
 (including GPS). With --cache, encoded outputs are reused for originals whose bytes
 haven't changed since the last run.
@@ -21,7 +22,8 @@ from pillow_heif import register_heif_opener
 
 register_heif_opener()
 
-YEAR_RE = re.compile(r"^\d{4}(-\d{2})?$")
+# Drive folders starting with this are left unpublished (drafts, unsorted uploads).
+IGNORE_PREFIX = "_"
 INPUT_EXTS = {".jpg", ".jpeg", ".png", ".heic", ".heif", ".webp"}
 SIZES = {"thumb": 600, "full": 2000}
 JPEG_QUALITY = 82
@@ -76,13 +78,10 @@ def encode(src, dests):
 
 
 def year_dirs(src):
+    # Loose files at the top level (e.g. a README for club members) are skipped silently.
     for entry in sorted(src.iterdir()):
-        if entry.name.startswith("."):
-            continue
-        if entry.is_dir() and YEAR_RE.match(entry.name):
+        if entry.is_dir() and not entry.name.startswith((".", IGNORE_PREFIX)):
             yield entry
-        else:
-            warn(f"Ignoring '{entry.name}': only year folders like 2024 or 2024-25 are published")
 
 
 def originals(year_dir):

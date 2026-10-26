@@ -16,7 +16,9 @@ repo. Without it, just wait for the weekly run.
 
 1. **Open the year folder.** In **AERO Media**, open the folder for the year, e.g.
    `2026`. If it doesn't exist yet, create it. Name it with the year only (`2026`) or
-   a season (`2025-26`). Folders with any other name are ignored.
+   a season (`2025-26`). Each folder becomes a tab named after it, so other names (e.g.
+   `Banquet`) work too. They're listed after the year tabs, A→Z. To keep a folder off
+   the site (drafts, unsorted uploads), start its name with `_`, e.g. `_unsorted`.
 2. **Upload photos into that folder.** Put them directly in the year folder, not in
    sub-folders. Accepted formats are JPEG, PNG, HEIC (iPhone), and WebP. Upload the full
    original size; the sync shrinks them.
@@ -35,8 +37,9 @@ sync again. The site is an exact mirror of the Drive folder: whatever is gone fr
 is gone from the site on the next sync. Be careful when reorganizing folders.
 
 **If the tab or photo doesn't show up,** open the latest **Sync media** run on GitHub.
-Ignored folders, unsupported files, and unreadable images are listed as warnings at
-the top of the run.
+Unsupported files and unreadable images are listed as warnings at the top of the run.
+`_` folders and loose files directly in **AERO Media** (e.g. notes or docs) are skipped
+silently.
 
 Photo location data (GPS) and other camera metadata are removed during the sync, and
 photos are rotated the right way up.

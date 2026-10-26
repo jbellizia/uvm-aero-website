@@ -8,6 +8,7 @@ import time
 from collections import defaultdict, deque
 from email.message import EmailMessage
 from pathlib import Path
+from urllib.parse import quote
 
 from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, request, send_from_directory
@@ -107,21 +108,30 @@ def media():
     if not root or not root.is_dir():
         return jsonify([])
 
+    # Tabs: year folders newest first, then any other folders A→Z.
+    dirs = [p for p in root.iterdir() if p.is_dir()]
+    year_dirs = sorted(
+        (p for p in dirs if MEDIA_YEAR_RE.match(p.name)), key=lambda p: p.name, reverse=True
+    )
+    other_dirs = sorted(
+        (p for p in dirs if not MEDIA_YEAR_RE.match(p.name)), key=lambda p: p.name.lower()
+    )
+
     years = []
-    for year_dir in sorted(root.iterdir(), key=lambda p: p.name, reverse=True):
-        if not (year_dir.is_dir() and MEDIA_YEAR_RE.match(year_dir.name)):
-            continue
+    for year_dir in year_dirs + other_dirs:
         thumb_dir, full_dir = year_dir / "thumb", year_dir / "full"
         if not thumb_dir.is_dir():
             continue
         year = year_dir.name
+        # Non-year folder names can contain spaces etc., so escape them in URLs.
+        url_year = quote(year)
         names = sorted(
             p.name for p in thumb_dir.glob("*.jpg") if (full_dir / p.name).is_file()
         )
         photos = [
             {
-                "thumb": f"/media/{year}/thumb/{name}",
-                "full": f"/media/{year}/full/{name}",
+                "thumb": f"/media/{url_year}/thumb/{name}",
+                "full": f"/media/{url_year}/full/{name}",
                 "alt": media_alt(Path(name).stem, year, i),
             }
             for i, name in enumerate(names, start=1)
