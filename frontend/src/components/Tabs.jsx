@@ -3,27 +3,34 @@ import { useState } from 'react';
 // By default the container shrinks to the active panel. Pass keepHeight to hold the tallest panel's height
 // so surrounding layout doesn't shift when switching tabs.
 // Pass active and onChange to control the selected tab from the parent.
-export default function Tabs({ tabs, panels, className = '', keepHeight = false, active: controlled, onChange }) {
+// Pass wrap to lay many tabs out as a grid of rows instead of one sideways-scrolling row.
+export default function Tabs({ tabs, panels, className = '', keepHeight = false, wrap = false, active: controlled, onChange }) {
   const [internal, setInternal] = useState(tabs[0].key);
   const active = controlled ?? internal;
   const setActive = onChange ?? setInternal;
 
   return (
     <>
-      {/* Scrolls sideways instead of squashing labels when there are more tabs than fit. */}
+      {/* Without wrap, scrolls sideways instead of squashing labels when there are more tabs than fit. */}
       <div
-        className={`flex gap-0 mb-8 border border-border overflow-x-auto ${className}`}
+        className={`mb-8 border-border ${
+          wrap ? 'grid grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] border-l border-t' : 'flex gap-0 border overflow-x-auto'
+        } ${className}`}
         style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}
       >
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActive(tab.key)}
-            className={`flex-1 shrink-0 px-4 py-2.5 whitespace-nowrap uppercase font-bold transition-colors ${
+            title={wrap ? String(tab.label) : undefined}
+            className={`px-4 py-2.5 uppercase font-bold transition-colors ${
+              // Fixed height fits two lines, so rows don't grow to their longest label.
+              wrap ? 'h-14 flex items-center justify-center border-r border-b border-border' : 'flex-1 shrink-0 whitespace-nowrap'
+            } ${
               active === tab.key ? 'bg-accent text-black' : 'text-muted hover:text-foreground'
             }`}
           >
-            {tab.label}
+            <span className={wrap ? 'line-clamp-2 leading-snug' : undefined}>{tab.label}</span>
           </button>
         ))}
       </div>

@@ -15,12 +15,13 @@ const SOCIAL_LINKS = [
 
 function PhotoGrid({ photos, onOpen }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border">
+    // Per-cell borders rather than a border-colored gap, so a part-filled last row shows the page background.
+    <div className="grid grid-cols-2 md:grid-cols-4 border-l border-t border-border">
       {photos.map((photo, index) => (
         <button
           key={photo.thumb}
           onClick={() => onOpen(index)}
-          className="block aspect-[4/3] bg-card overflow-hidden"
+          className="block aspect-[4/3] bg-card overflow-hidden border-r border-b border-border"
           aria-label={`Open photo: ${photo.alt}`}
         >
           <img
@@ -79,6 +80,7 @@ export default function Media() {
   } else {
     body = (
       <Tabs
+        wrap
         tabs={years.map((y) => ({ key: y.year, label: y.year }))}
         panels={years.map((y) => ({
           key: y.year,
