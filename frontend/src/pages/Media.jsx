@@ -92,7 +92,7 @@ export default function Media() {
 
   return (
     <div className="pt-[65px]">
-      <section className="bg-background py-24 px-6 border-b border-border">
+      <section className="bg-background py-16 md:py-24 px-6 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
             <h1

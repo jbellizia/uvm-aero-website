@@ -41,7 +41,7 @@ export default function Car() {
             </div>
           </div>
 
-          <div className="relative p-8 md:p-12 flex flex-col justify-between">
+          <div className="relative px-6 py-8 md:p-12 flex flex-col justify-between">
             <div className="hidden md:block absolute left-0 top-8 bottom-8 w-px bg-border" />
             <div>
               <h1

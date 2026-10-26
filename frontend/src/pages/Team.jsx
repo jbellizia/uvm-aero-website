@@ -13,7 +13,7 @@ export default function Team() {
 
   return (
     <div className="pt-[65px]">
-      <section className="bg-background py-24 px-6 border-b border-border">
+      <section className="bg-background py-16 md:py-24 px-6 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
             <h1
@@ -26,7 +26,7 @@ export default function Team() {
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-border border border-border">
             {team.map((member) => (
-              <div key={member.name} className="p-6 bg-background hover:bg-card transition-colors duration-150">
+              <div key={member.name} className="p-3 md:p-6 bg-background hover:bg-card transition-colors duration-150">
                 <div className="w-full aspect-square bg-card border border-border mb-4 overflow-hidden">
                   <img
                     src={`/${member.image}`}
@@ -48,7 +48,7 @@ export default function Team() {
           <div className="mt-6 flex justify-end">
             <Link
               to="/contact"
-              className="group flex items-center gap-2 text-accent font-semibold text-sm uppercase tracking-widest hover:text-foreground transition-colors"
+              className="group flex items-center gap-2 py-3 md:py-0 text-accent font-semibold text-sm uppercase tracking-widest hover:text-foreground transition-colors"
               style={{ fontSize: '0.7rem' }}
             >
               JOIN THE TEAM
