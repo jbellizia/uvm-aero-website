@@ -1,3 +1,8 @@
 [
-  { "name": "OSH Cut", "logo": "Horizontal-OSH-Cut-Full-Color-Light-Grey.png", "url": "https://www.oshcut.com/" }
+  { "name": "OSH Cut", "logo": "Horizontal-OSH-Cut-Full-Color-Light-Grey.png", "url": "https://www.oshcut.com/" },
+  { "name": "DTI", "logo": "DTI.jpeg", "url": "https://www.drivetraininnovation.com/" },
+  { "name": "Enepaq", "logo": "ENEPAQ.jpeg", "url": "https://enepaq.com/" },
+  { "name": "Hazelett", "logo": "HAZELETT.jpeg", "url": "https://www.hazelett.com/" },
+  { "name": "JLCPCB", "logo": "JLCPCB.jpeg", "url": "https://jlcpcb.com/" }
+
 ]
